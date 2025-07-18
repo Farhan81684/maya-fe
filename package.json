@@ -1,0 +1,36 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3094",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@deepgram/sdk": "^3.11.2",
+    "@heygen/streaming-avatar": "^2.0.10",
+    "@ricky0123/vad-react": "^0.0.28",
+    "antd": "^5.25.3",
+    "axios": "^1.8.3",
+    "livekit-client": "^2.9.8",
+    "lucide-react": "^0.483.0",
+    "moment": "^2.30.1",
+    "next": "15.2.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-images-uploading": "^3.1.7",
+    "react-pdf": "^9.2.1",
+    "recharts": "^2.15.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.3",
+    "tailwindcss": "^4"
+  }
+}
