@@ -40,7 +40,7 @@ const Sidebar = () => {
       }}>
       <div className="flex items-center justify-center">
      <div className="logo flex items-center gap-3">
-  <h1 className="text-xl font-bold text-white">Maya AI</h1>
+  <h1 className="text-xl font-bold text-white">converAIx</h1>
   <img src="/assets/logo.svg" alt="logo" width={50} height={50} />
 </div>
  

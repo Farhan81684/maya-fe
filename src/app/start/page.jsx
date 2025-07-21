@@ -68,7 +68,6 @@ export default function Start() {
   const ws = useRef(null);
   const [wsMessage, setWsMessage] = useState(null);
   const [pendingMessages, setPendingMessages] = useState([]);
-console.log(TypingIndicator); // should be a function, not undefined or object
 
   useEffect(() => {
     let storedId = localStorage.getItem("clientId");
@@ -201,6 +200,7 @@ console.log(TypingIndicator); // should be a function, not undefined or object
         let data;
         try {
           data = JSON.parse(event.data);
+          console.log("Received WebSocket message:", data);
         } catch (e) {
           console.error("WebSocket JSON parsing error:", e);
           return;
@@ -229,6 +229,10 @@ console.log(TypingIndicator); // should be a function, not undefined or object
             setShowDoc(false);
             data?.pricing_page_url &&
               window.open(data.pricing_page_url, "_blank");
+          } else if (data?.type === "screening_form") {
+            setDocType("screening_form");
+            setShowDoc(true);
+            setDocUrl("");
           } else if (data?.type === "ask_for_meeting") {
             setDocType("ask_for_meeting");
             setShowDoc(true);
@@ -487,7 +491,7 @@ console.log(TypingIndicator); // should be a function, not undefined or object
     );
 
   return (
- <main
+    <main
       className="min-h-screen flex flex-col"
       style={{
         background:
@@ -571,6 +575,26 @@ console.log(TypingIndicator); // should be a function, not undefined or object
                     </div>
                   </div>
                 )}
+                {docType === "screening_form" && (  
+                  <div className="relative rounded-lg w-full h-full overflow-hidden">
+                    <iframe
+                      src="https://docs.google.com/forms/d/e/1FAIpQLScBsAPt2AHeeb8ytd61rmlpW05qncfJO_mmgCH4mBnSrrr9Hw/viewform?embedded=true"
+                      title="Screening Form"
+                      width="100%"
+                      height="100%"
+                      className="h-full w-full rounded-lg"
+                      frameBorder="0"
+                      style={{ border: "none" }}
+                      allowFullScreen
+                    />
+                    <div
+                      onClick={() => setShowDoc(false)}
+                      className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-2 cursor-pointer shadow"
+                    >
+                      <ImCross />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -581,68 +605,69 @@ console.log(TypingIndicator); // should be a function, not undefined or object
           <div className="absolute inset-0 bg-[#f1f1f1] rounded-xl" />
 
           {/* Messages */}
-      <div
-  ref={containerRef}
-  className="flex-1 overflow-y-auto space-y-4 px-2 md:px-[.9rem] pt-[.7rem] scrollbar z-10"
->
-  {messages.map((message) => {
-    const isAI = message.type === "ai";
-    const isUser = message.type === "user";
-    const msg = message.message;
-    if (!msg) return null;
+          <div
+            ref={containerRef}
+            className="flex-1 overflow-y-auto space-y-4 px-2 md:px-[.9rem] pt-[.7rem] scrollbar z-10"
+          >
+            {messages.map((message) => {
+              const isAI = message.type === "ai";
+              const isUser = message.type === "user";
+              const msg = message.message;
+              if (!msg) return null;
 
-    return (
-      <div
-        key={message.id}
-        className={`flex ${isAI ? "justify-start" : "justify-end"} gap-2 items-start`}
-      >
-        {/* Left Avatar (AI) */}
-        {isAI && (
-          <Image
-            src={staticAvatar}
-            alt="AI"
-            className="w-8 h-8 rounded-full mt-[6px] shrink-0"
-          />
-        )}
+              return (
+                <div
+                  key={message.id}
+                  className={`flex ${
+                    isAI ? "justify-start" : "justify-end"
+                  } gap-2 items-start`}
+                >
+                  {/* Left Avatar (AI) */}
+                  {isAI && (
+                    <Image
+                      src={staticAvatar}
+                      alt="AI"
+                      className="w-8 h-8 rounded-full mt-[6px] shrink-0"
+                    />
+                  )}
 
-        {/* Message Bubble */}
-        <div
-          className={`px-4 py-3 text-sm rounded-xl shadow max-w-[85%] ${
-            isAI
-              ? "bg-white text-black rounded-bl-none font-medium text-lg"
-              : "bg-[#003366] text-white rounded-br-none"
-          }`}
-        >
-          <p className="whitespace-pre-line break-words text-base">
-            {renderMessageWithLinks(msg)}
-          </p>
-        </div>
+                  {/* Message Bubble */}
+                  <div
+                    className={`px-4 py-3 text-sm rounded-xl shadow max-w-[85%] ${
+                      isAI
+                        ? "bg-white text-black rounded-bl-none font-medium text-lg"
+                        : "bg-[#003366] text-white rounded-br-none"
+                    }`}
+                  >
+                    <p className="whitespace-pre-line break-words text-base">
+                      {renderMessageWithLinks(msg)}
+                    </p>
+                  </div>
 
-        {/* Right Icon (User) */}
-        {isUser && (
-          <div className="w-8 h-8 mt-[6px] shrink-0 bg-[#003366] text-white rounded-full flex items-center justify-center">
-            <UserIcon className="w-4 h-4" />
+                  {/* Right Icon (User) */}
+                  {isUser && (
+                    <div className="w-8 h-8 mt-[6px] shrink-0 bg-[#003366] text-white rounded-full flex items-center justify-center">
+                      <UserIcon className="w-4 h-4" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Typing indicator */}
+            {isTyping && (
+              <div className="flex justify-start gap-2 items-start">
+                <Image
+                  src={staticAvatar}
+                  alt="AI"
+                  className="w-8 h-8 rounded-full mt-[6px] shrink-0"
+                />
+                <div className="px-4 py-3 bg-white text-black text-sm rounded-xl rounded-bl-none shadow">
+                  <TypingIndicator />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    );
-  })}
-
-  {/* Typing indicator */}
-  {isTyping && (
-    <div className="flex justify-start gap-2 items-start">
-      <Image
-        src={staticAvatar}
-        alt="AI"
-        className="w-8 h-8 rounded-full mt-[6px] shrink-0"
-      />
-      <div className="px-4 py-3 bg-white text-black text-sm rounded-xl rounded-bl-none shadow">
-        <TypingIndicator />
-      </div>
-    </div>
-  )}
-</div>
-
 
           {/* Input */}
           <div className="relative z-10 p-4">
@@ -666,6 +691,5 @@ console.log(TypingIndicator); // should be a function, not undefined or object
         </div>
       </div>
     </main>
-
   );
 }
