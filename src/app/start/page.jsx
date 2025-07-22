@@ -200,7 +200,7 @@ export default function Start() {
         let data;
         try {
           data = JSON.parse(event.data);
-          console.log("Received WebSocket message:", data);
+          console.log("Received WebSocket message:", data.type);
         } catch (e) {
           console.error("WebSocket JSON parsing error:", e);
           return;
@@ -211,6 +211,7 @@ export default function Start() {
           "response",
           "normal_mode",
           "ppt_mode",
+          "screening_form",
           "ask_for_meeting",
           "goto_page_mode",
         ];
@@ -230,9 +231,13 @@ export default function Start() {
             data?.pricing_page_url &&
               window.open(data.pricing_page_url, "_blank");
           } else if (data?.type === "screening_form") {
+            console.log("screening_form");
             setDocType("screening_form");
             setShowDoc(true);
-            setDocUrl("");
+            setDocUrl(
+              data?.screening_form_url ||
+                "https://docs.google.com/forms/d/e/1FAIpQLScBsAPt2AHeeb8ytd61rmlpW05qncfJO_mmgCH4mBnSrrr9Hw/viewform?embedded=true"
+            );
           } else if (data?.type === "ask_for_meeting") {
             setDocType("ask_for_meeting");
             setShowDoc(true);
@@ -261,7 +266,7 @@ export default function Start() {
   }, [streamStarted]);
 
   useEffect(() => {
-    const handleBeforeUnload = async (event) => {
+    const handleBeforeUnload = async () => {
       try {
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/talk-time/end`, {
           method: "POST",
@@ -275,6 +280,8 @@ export default function Start() {
         });
       } catch (error) {
         console.error("Failed to send exit tracking", error);
+      } finally {
+        localStorage.removeItem("clientId"); // ⬅️ Clear client ID
       }
     };
 
@@ -282,7 +289,7 @@ export default function Start() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, [clientId]);
 
   const sendRepeat = async (message) => {
     setMessages((prev) => [
@@ -575,10 +582,10 @@ export default function Start() {
                     </div>
                   </div>
                 )}
-                {docType === "screening_form" && (  
+                {docType === "screening_form" && (
                   <div className="relative rounded-lg w-full h-full overflow-hidden">
                     <iframe
-                      src="https://docs.google.com/forms/d/e/1FAIpQLScBsAPt2AHeeb8ytd61rmlpW05qncfJO_mmgCH4mBnSrrr9Hw/viewform?embedded=true"
+                      src={docUrl}
                       title="Screening Form"
                       width="100%"
                       height="100%"
