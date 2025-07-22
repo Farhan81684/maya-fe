@@ -18,6 +18,8 @@ import TypingIndicator from "./TypingIndicator"; // ✅ Correct
 import staticAvatar from "../../../public/assets/maya.svg"; // Update this path to your image
 import Logo from "../../../public/assets/logo.svg";
 import slide from "../../../public/assets/slide.jpg";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PDFViewer = nextDynamic(() => import("@/components/PDFViewer"), {
   ssr: false,
@@ -55,8 +57,8 @@ export default function Start() {
   const [isStarted, setIsStarted] = useState(false);
   const [lastQuestion, setLastQuestion] = useState("");
   const [messageLoading, setMessageLoading] = useState(false);
-  const [showDoc, setShowDoc] = useState(false);
-  const [docType, setDocType] = useState("");
+  const [showDoc, setShowDoc] = useState(true);
+  const [docType, setDocType] = useState("screening_form");
   const [docUrl, setDocUrl] = useState("");
   const [buttonType, setButtonType] = useState("LEAVE");
   const [isTyping, setIsTyping] = useState(false);
@@ -103,6 +105,7 @@ export default function Start() {
     }
   };
 
+
   const closeSession = async () => {
     try {
       updateStatus("Session closed");
@@ -134,6 +137,53 @@ export default function Start() {
       console.error("Error in closeSession:", error);
     }
   };
+
+  const [formData, setFormData] = useState({
+  firstName: "",
+  lastName: "",
+  dob: "",
+  sex: "",
+  support: "",
+  therapist: "",
+  emotion1: "",
+  session1: "",
+  emotion2: "",
+  session2: "",
+});
+
+const fields = [
+  { label: "First Name", name: "firstName" },
+  { label: "Last Name", name: "lastName" },
+  { label: "Date of Birth", name: "dob" },
+  { label: "Sex", name: "sex" },
+  { label: "What would you like support with in this session?", name: "support" },
+  { label: "Have you worked with a therapist before?", name: "therapist" },
+  { label: "How are you feeling emotionally, on a scale of 1–10?", name: "emotion1" },
+  { label: "Do you prefer online or in-person sessions?", name: "session1" },
+  { label: "How are you feeling emotionally, on a scale of 1–10?", name: "emotion2" },
+  { label: "Do you prefer online or in-person sessions?", name: "session2" },
+];
+
+const handleSubmitForm = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/screening-form`,
+      {
+        user_id: clientId,
+        ...formData,
+      }
+    );
+    console.log("Form submitted successfully:", response.data);
+    toast.success("Form submitted successfully!");
+    setShowDoc(false);
+  } catch (error) {
+    console.error("Form submission failed:", error);
+    toast.error("Failed to submit the form.");
+  }
+};
+
 
   const sendText = async (text, taskType) => {
     if (!streamStarted) {
@@ -582,26 +632,55 @@ export default function Start() {
                     </div>
                   </div>
                 )}
-                {docType === "screening_form" && (
-                  <div className="relative rounded-lg w-full h-full overflow-hidden">
-                    <iframe
-                      src={docUrl}
-                      title="Screening Form"
-                      width="100%"
-                      height="100%"
-                      className="h-full w-full rounded-lg"
-                      frameBorder="0"
-                      style={{ border: "none" }}
-                      allowFullScreen
-                    />
-                    <div
-                      onClick={() => setShowDoc(false)}
-                      className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-2 cursor-pointer shadow"
-                    >
-                      <ImCross />
-                    </div>
-                  </div>
-                )}
+{docType === "screening_form" && (
+  <div className="relative rounded-lg w-full h-full bg-white shadow">
+    {/* Close Button */}
+    <div
+      onClick={() => setShowDoc(false)}
+      className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-2 cursor-pointer shadow z-10"
+    >
+      <ImCross />
+    </div>
+
+    {/* Scrollable Form */}
+    <div className="h-full w-full p-6 overflow-y-auto space-y-6 custom-scrollbar">
+      <h2 className="text-xl md:text-2xl font-semibold text-center">
+        Health Pre-Screening Form
+      </h2>
+
+<form onSubmit={handleSubmitForm}>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {fields.map((field, index) => (
+      <div key={index}>
+        <label className="block text-sm font-medium">{field.label}</label>
+        <input
+          type="text"
+          name={field.name}
+          value={formData[field.name]}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, [field.name]: e.target.value }))
+          }
+          placeholder="Type Here"
+          className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    ))}
+  </div>
+
+  <div className="mt-6 flex justify-center">
+    <button
+      type="submit"
+      className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+
+    </div>
+  </div>
+)}
+
               </div>
             </div>
           )}
@@ -697,6 +776,8 @@ export default function Start() {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
     </main>
   );
 }
