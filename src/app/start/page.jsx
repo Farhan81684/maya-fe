@@ -57,8 +57,8 @@ export default function Start() {
   const [isStarted, setIsStarted] = useState(false);
   const [lastQuestion, setLastQuestion] = useState("");
   const [messageLoading, setMessageLoading] = useState(false);
-  const [showDoc, setShowDoc] = useState(true);
-  const [docType, setDocType] = useState("screening_form");
+  const [showDoc, setShowDoc] = useState(false);
+  const [docType, setDocType] = useState("");
   const [docUrl, setDocUrl] = useState("");
   const [buttonType, setButtonType] = useState("LEAVE");
   const [isTyping, setIsTyping] = useState(false);
@@ -284,10 +284,7 @@ const handleSubmitForm = async (e) => {
             console.log("screening_form");
             setDocType("screening_form");
             setShowDoc(true);
-            setDocUrl(
-              data?.screening_form_url ||
-                "https://docs.google.com/forms/d/e/1FAIpQLScBsAPt2AHeeb8ytd61rmlpW05qncfJO_mmgCH4mBnSrrr9Hw/viewform?embedded=true"
-            );
+      
           } else if (data?.type === "ask_for_meeting") {
             setDocType("ask_for_meeting");
             setShowDoc(true);

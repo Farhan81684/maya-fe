@@ -167,7 +167,7 @@ const Header = () => {
                             <div className="h-14 w-14 rounded-full overflow-hidden bg-white cursor-pointer">
                                 <Image
                                     key={Math.random()}
-                                    src={user?.profile_pic_url ? `https://api.smoothcx.ai/node/images/${user?.profile_pic_url?.replace("/uploads", "")}?t=${new Date().getTime()}` : dummy}
+                                    src={user?.profile_pic_url ? `http://192.168.18.24:4006${user?.profile_pic_url}` : dummy}
                                     alt="Profile"
                                     width={56}
                                     height={56}

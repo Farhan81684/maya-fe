@@ -78,7 +78,7 @@ const AdminsPage = () => {
                 })
             }
             else {
-                setLoader(true)
+                // setLoader(true)
                 let res = await axios.put(
                     `${process.env.NEXT_PUBLIC_API_URL}/auth/update-admin/${selectedAdmin?.id}`,
                     {
@@ -91,6 +91,7 @@ const AdminsPage = () => {
                     }
                 )
                 if (res?.status === 200) {
+                    console.log("Admin updated successfully:", res?.data,localStorage.getItem("access_token"));
                     setLoader(false)
                     setisUpdateModalOpen(false);
                     form_update.resetFields();
@@ -105,6 +106,8 @@ const AdminsPage = () => {
             }
 
         } catch (error) {
+                    console.log("Admin updated successfully:", res?.data,localStorage.getItem("access_token"));
+
             console.error("Error in /update admin: ", error?.message || error?.response?.data?.message || error?.response?.data || error);
             setLoader(false)
         }
@@ -168,15 +171,17 @@ const AdminsPage = () => {
 
 
     const fetchAdmins = async () => {
-        setLoader(true)
+        // setLoader(true)
+        const token = localStorage.getItem("access_token");
         let res = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/auth/list`,
             {
                 headers: {
-                    Authorization: localStorage.getItem("access_token")
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
+        console.log(res?.data?.admins, "admins")
         setLoader(false)
         setAdmins(res?.data?.admins)
 
@@ -224,7 +229,8 @@ const AdminsPage = () => {
         }
         if (JSON.parse(localStorage.getItem("user"))?.role_id !== 1) {
             message("You are not authorized to view this page.", "error");
-            router.push("/admin/dashboard"); // Redirect to dashboard if not admin
+            router.push("/admin/dashboard"); 
+            
         }
     }, [])
 
