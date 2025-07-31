@@ -41,7 +41,9 @@ export default function LoginPage() {
             localStorage.setItem("user", JSON.stringify(resp.data.user));
 
             message(resp.data.message || "Login successful!", "success");
-            router.push("/admin/dashboard");
+           console.log("Redirecting to dashboard...");
+router.push("/admin/dashboard");
+
         }
         catch (error) {
             setLoading(false);

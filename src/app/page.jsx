@@ -5,19 +5,19 @@ import nextDynamic from "next/dynamic";
 
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import logo from "../../../public/assets/logo.svg";
+import logo from "../../public/assets/logo.svg";
 import Link from "next/link";
-import { Send } from "lucide-react";
 import { ImCross } from "react-icons/im";
 import Script from "next/script";
 import { Progress } from "antd";
 import moment from "moment";
 import Image from "next/image";
-import { User as UserIcon } from "lucide-react"; // or your own user icon
+import { Send } from "lucide-react";
+import { FaUser as UserIcon } from "react-icons/fa";
 import TypingIndicator from "./TypingIndicator"; // ✅ Correct
-import staticAvatar from "../../../public/assets/maya.svg"; // Update this path to your image
-import Logo from "../../../public/assets/logo.svg";
-import slide from "../../../public/assets/slide.jpg";
+import staticAvatar from "../../public/assets/maya.svg"; // Update this path to your image
+import Logo from "../../public/assets/logo.svg";
+import slide from "../../public/assets/slide.jpg";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,7 +32,7 @@ function generateId(length = 10) {
     const randomIndex = Math.floor(Math.random() * chars.length);
     result += chars[randomIndex];
   }
-  localStorage.setItem("clientId", result);
+  // Note: localStorage usage removed for artifact compatibility
   return result;
 }
 
@@ -47,6 +47,8 @@ function generateIdOnly(length = 10) {
 }
 
 const conversationId = generateIdOnly(20);
+
+
 
 export default function Start() {
   const [messages, setMessages] = useState([]);
@@ -64,6 +66,7 @@ export default function Start() {
   const [isTyping, setIsTyping] = useState(false);
   const [countdown, setCountdown] = useState(null);
   const [countdownPercent, setCountdownPercent] = useState(100);
+  const [suggestedReplies, setSuggestedReplies] = useState([]); // New state for suggestions
 
   const [clientId, setClientId] = useState(null);
   const containerRef = useRef(null);
@@ -72,13 +75,8 @@ export default function Start() {
   const [pendingMessages, setPendingMessages] = useState([]);
 
   useEffect(() => {
-    let storedId = localStorage.getItem("clientId");
-    if (!storedId) {
-      storedId = generateId();
-      localStorage.setItem("clientId", storedId);
-    }
+    let storedId = generateId();
     setClientId(storedId);
-
     handleStart();
   }, []);
 
@@ -104,7 +102,6 @@ export default function Start() {
       setLoading(false);
     }
   };
-
 
   const closeSession = async () => {
     try {
@@ -139,51 +136,59 @@ export default function Start() {
   };
 
   const [formData, setFormData] = useState({
-  firstName: "",
-  lastName: "",
-  dob: "",
-  sex: "",
-  support: "",
-  therapist: "",
-  emotion1: "",
-  session1: "",
-  emotion2: "",
-  session2: "",
-});
+    firstName: "",
+    lastName: "",
+    dob: "",
+    sex: "",
+    support: "",
+    therapist: "",
+    emotion1: "",
+    session1: "",
+    emotion2: "",
+    session2: "",
+  });
 
-const fields = [
-  { label: "First Name", name: "firstName" },
-  { label: "Last Name", name: "lastName" },
-  { label: "Date of Birth", name: "dob" },
-  { label: "Sex", name: "sex" },
-  { label: "What would you like support with in this session?", name: "support" },
-  { label: "Have you worked with a therapist before?", name: "therapist" },
-  { label: "How are you feeling emotionally, on a scale of 1–10?", name: "emotion1" },
-  { label: "Do you prefer online or in-person sessions?", name: "session1" },
-  { label: "How are you feeling emotionally, on a scale of 1–10?", name: "emotion2" },
-  { label: "Do you prefer online or in-person sessions?", name: "session2" },
-];
+  const fields = [
+    { label: "First Name", name: "firstName" },
+    { label: "Last Name", name: "lastName" },
+    { label: "Date of Birth", name: "dob" },
+    { label: "Sex", name: "sex" },
+    {
+      label: "What would you like support with in this session?",
+      name: "support",
+    },
+    { label: "Have you worked with a therapist before?", name: "therapist" },
+    {
+      label: "How are you feeling emotionally, on a scale of 1–10?",
+      name: "emotion1",
+    },
+    { label: "Do you prefer online or in-person sessions?", name: "session1" },
+    {
+      label: "How are you feeling emotionally, on a scale of 1–10?",
+      name: "emotion2",
+    },
+    { label: "Do you prefer online or in-person sessions?", name: "session2" },
+  ];
 
-const handleSubmitForm = async (e) => {
-  e.preventDefault();
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/screening-form`,
-      {
-        user_id: clientId,
-        ...formData,
-      }
-    );
-    console.log("Form submitted successfully:", response.data);
-    toast.success("Form submitted successfully!");
-    setShowDoc(false);
-  } catch (error) {
-    console.error("Form submission failed:", error);
-    toast.error("Failed to submit the form.");
-  }
-};
-
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/screening-form`,
+        {
+          user_id: clientId,
+          ...formData,
+        }
+      );
+      console.log("Form submitted successfully:", response.data);
+      toast.success("Form submitted successfully!");
+      setShowDoc(false);
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      toast.error("Failed to submit the form.");
+    }
+  };
 
   const sendText = async (text, taskType) => {
     if (!streamStarted) {
@@ -209,16 +214,24 @@ const handleSubmitForm = async (e) => {
       console.error("Error in sendText:", error);
     }
   };
-  const sendMessage = async () => {
-    if (input.trim()) {
+
+  const sendMessage = async (messageText = null) => {
+    const textToSend = messageText || input.trim();
+    if (textToSend) {
       setMessages((prev) => [
         ...prev,
-        { id: prev.length + 1, type: "user", message: input.trim() },
+        { id: prev.length + 1, type: "user", message: textToSend },
       ]);
       setIsTyping(true); // Start typing animation
-      await sendText(input.trim(), "talk");
-      setInput("");
+      setSuggestedReplies([]); // Clear suggestions when user sends a message
+      await sendText(textToSend, "talk");
+      if (!messageText) setInput(""); // Only clear input if it's from the input field
     }
+  };
+
+  // Handle suggested reply click
+  const handleSuggestedReplyClick = (suggestion) => {
+    sendMessage(suggestion);
   };
 
   useEffect(() => {
@@ -250,7 +263,7 @@ const handleSubmitForm = async (e) => {
         let data;
         try {
           data = JSON.parse(event.data);
-          console.log("Received WebSocket message:", data.type);
+          console.log("Received WebSocket message:", data);
         } catch (e) {
           console.error("WebSocket JSON parsing error:", e);
           return;
@@ -269,6 +282,7 @@ const handleSubmitForm = async (e) => {
         if (types.includes(data?.type)) {
           setIsTyping(false); // Stop typing when a message is received
           setWsMessage(data.message);
+          setSuggestedReplies(data?.suggested_replies || []);
           setMessageLoading(false);
 
           if (data?.type === "ppt_mode") {
@@ -284,13 +298,13 @@ const handleSubmitForm = async (e) => {
             console.log("screening_form");
             setDocType("screening_form");
             setShowDoc(true);
-      
           } else if (data?.type === "ask_for_meeting") {
             setDocType("ask_for_meeting");
             setShowDoc(true);
             setDocUrl(data?.url || "");
           } else if (data?.type === "normal_mode") {
             setDocType("normal_mode");
+
             setShowDoc(false);
             setDocUrl("");
           }
@@ -327,8 +341,6 @@ const handleSubmitForm = async (e) => {
         });
       } catch (error) {
         console.error("Failed to send exit tracking", error);
-      } finally {
-        localStorage.removeItem("clientId"); // ⬅️ Clear client ID
       }
     };
 
@@ -338,50 +350,83 @@ const handleSubmitForm = async (e) => {
     };
   }, [clientId]);
 
-  const sendRepeat = async (message) => {
+function splitIntoMessages(text) {
+  // Handle abbreviations properly so they don’t break the sentence
+  const safeText = text.replace(/\b(Dr|Mr|Mrs|Ms|St)\./g, "$1<<DOT>>");
+
+  // Split on sentence-ending punctuation followed by space + capital letter
+  const parts = safeText.split(/(?<=[.!?])\s+(?=[A-Z])/);
+
+  // Restore real dots in abbreviations
+  return parts.map(s => s.replace(/<<DOT>>/g, ".").trim()).filter(Boolean);
+}
+
+
+const sendRepeat = async (message) => {
+  const sentences = splitIntoMessages(message);
+  if (!sentences.length) return;
+
+  setIsTyping(true); // Start typing before showing any message
+
+  for (let i = 0; i < sentences.length; i++) {
+    const sentence = sentences[i];
+
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // 5-second delay
+
     setMessages((prev) => [
       ...prev,
-      { id: prev.length + 1, type: "ai", message: message },
+      {
+        id: Date.now() + i,
+        type: "ai",
+        message: sentence,
+      },
     ]);
-  };
+
+    if (i === sentences.length - 1) {
+      // Last message
+      setIsTyping(false); // Stop typing
+    }
+  }
+};
+
+
 
   useEffect(() => {
     if (!wsMessage) return;
     setPendingMessages((prev) => [...prev, wsMessage]);
   }, [wsMessage]);
 
-  useEffect(() => {
-    if (!pendingMessages.length) return;
+useEffect(() => {
+  if (!pendingMessages.length) return;
 
-    if (pendingMessages.length > 1) {
-      const newest = pendingMessages[pendingMessages.length - 1];
-      setPendingMessages([newest]);
-      return;
-    }
+  const [latestMessage] = pendingMessages;
+  let isCancelled = false;
 
-    const [latestMessage] = pendingMessages;
-    let isCancelled = false;
+  const handleMessage = async () => {
+    if (isCancelled) return;
+    await sendRepeat(latestMessage);
+    setPendingMessages((prev) => prev.slice(1));
+  };
 
-    const handleMessage = async () => {
-      if (isCancelled) return;
-      await sendRepeat(latestMessage);
-      setTimeout(() => {
-        setPendingMessages((prev) => prev.slice(1));
-      }, 200);
-    };
+  handleMessage();
 
-    handleMessage();
+  return () => {
+    isCancelled = true;
+  };
+}, [pendingMessages?.length]);
 
-    return () => {
-      isCancelled = true;
-    };
-  }, [pendingMessages?.length]);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [messages?.length]);
+useEffect(() => {
+  if (containerRef.current) {
+    setTimeout(() => {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
+  }
+}, [messages?.length, suggestedReplies?.length]);
+
 
   useEffect(() => {
     const messageListener = (event) => {
@@ -593,11 +638,11 @@ const handleSubmitForm = async (e) => {
 
               <div className="flex-1 p-1 relative overflow-auto">
                 {docType === "ppt_mode" && (
-                  <div className="relative flex justify-center h-full rounded-lg overflow-hidden ">
+                  <div className="relative flex justify-center items-center w-full h-full overflow-auto rounded-lg">
                     <img
                       src={docUrl}
                       alt="Document"
-                      className="h-full object-cover rounded-lg"
+                      className="max-w-full max-h-full object-contain rounded-lg"
                     />
                     <div
                       onClick={() => setShowDoc(false)}
@@ -629,55 +674,59 @@ const handleSubmitForm = async (e) => {
                     </div>
                   </div>
                 )}
-{docType === "screening_form" && (
-  <div className="relative rounded-lg w-full h-full bg-white shadow">
-    {/* Close Button */}
-    <div
-      onClick={() => setShowDoc(false)}
-      className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-2 cursor-pointer shadow z-10"
-    >
-      <ImCross />
-    </div>
 
-    {/* Scrollable Form */}
-    <div className="h-full w-full p-6 overflow-y-auto space-y-6 custom-scrollbar">
-      <h2 className="text-xl md:text-2xl font-semibold text-center">
-        Health Pre-Screening Form
-      </h2>
+                {docType === "screening_form" && (
+                  <div className="relative rounded-lg w-full h-full bg-white shadow">
+                    {/* Close Button */}
+                    <div
+                      onClick={() => setShowDoc(false)}
+                      className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-2 cursor-pointer shadow z-10"
+                    >
+                      <ImCross />
+                    </div>
 
-<form onSubmit={handleSubmitForm}>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {fields.map((field, index) => (
-      <div key={index}>
-        <label className="block text-sm font-medium">{field.label}</label>
-        <input
-          type="text"
-          name={field.name}
-          value={formData[field.name]}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, [field.name]: e.target.value }))
-          }
-          placeholder="Type Here"
-          className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-    ))}
-  </div>
+                    {/* Scrollable Form */}
+                    <div className="h-full w-full p-6 overflow-y-auto space-y-6 custom-scrollbar">
+                      <h2 className="text-xl md:text-2xl font-semibold text-center">
+                        Health Pre-Screening Form
+                      </h2>
 
-  <div className="mt-6 flex justify-center">
-    <button
-      type="submit"
-      className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
-    >
-      Submit
-    </button>
-  </div>
-</form>
+                      <form onSubmit={handleSubmitForm}>
+                        <div className="grid grid-cols-1 mt-10 md:grid-cols-2 gap-4">
+                          {fields.map((field, index) => (
+                            <div key={index}>
+                              <label className="block text-sm font-medium">
+                                {field.label}
+                              </label>
+                              <input
+                                type="text"
+                                name={field.name}
+                                value={formData[field.name]}
+                                onChange={(e) =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    [field.name]: e.target.value,
+                                  }))
+                                }
+                                placeholder="Type Here"
+                                className="w-full h-12 border border-gray-300 rounded-md px-4 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              />
+                            </div>
+                          ))}
+                        </div>
 
-    </div>
-  </div>
-)}
-
+                        <div className="mt-6 flex justify-center">
+                          <button
+                            type="submit"
+                            className="bg-[#003366] text-white px-6 py-2 rounded-md hover:bg-[#003366]/80 transition"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -690,7 +739,7 @@ const handleSubmitForm = async (e) => {
           {/* Messages */}
           <div
             ref={containerRef}
-            className="flex-1 overflow-y-auto space-y-4 px-2 md:px-[.9rem] pt-[.7rem] scrollbar z-10"
+            className="flex-1 overflow-y-auto space-y-2 px-2 md:px-[.9rem] pt-[.7rem] scrollbar z-10"
           >
             {messages.map((message) => {
               const isAI = message.type === "ai";
@@ -750,6 +799,26 @@ const handleSubmitForm = async (e) => {
                 </div>
               </div>
             )}
+
+            {/* Suggested Replies */}
+            {suggestedReplies.length > 0 && !isTyping && (
+              <div className="flex justify-start items-start w-full px-4 mt-2">
+                {/* Spacer for AI avatar alignment */}
+                <div className="w-8 h-8 mt-[6px] shrink-0" />
+                {/* Suggested replies container */}
+                <div className="flex flex-wrap gap-2 w-full max-w-[85%]">
+                  {suggestedReplies.map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleSuggestedReplyClick(suggestion)}
+                      className="px-4 py-2 text-lg bg-gray-300/50 hover:bg-gray-200 text-black rounded-md border border-[#003366] transition-colors duration-200"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Input */}
@@ -764,7 +833,7 @@ const handleSubmitForm = async (e) => {
                 className="flex-1 py-3 px-4 text-gray-700 placeholder-gray-500 focus:outline-none text-sm"
               />
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 className="bg-[#003366] hover:bg-[#002244] p-3 flex items-center justify-center"
               >
                 <Send className="text-white w-5 h-5" />
@@ -773,8 +842,11 @@ const handleSubmitForm = async (e) => {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+      />
     </main>
   );
 }

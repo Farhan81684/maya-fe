@@ -152,3 +152,8 @@ a {
 .animate-bounce {
   animation: bounce 1s infinite;
 }
+
+/* styles/globals.css */
+.scrollbar {
+  scroll-behavior: smooth;
+}

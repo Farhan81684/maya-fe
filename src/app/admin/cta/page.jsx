@@ -137,7 +137,7 @@ export default function Dashboard() {
             name: item?.name || '-',
             email: item?.email_id || '-',
             sent: item?.email_sent === 0 ? false : true,
-            time: item?.talk_time ? formatTimeFromMinutes(item?.talk_time) : "0h 0m 0s",
+            time: item?.talk_time ,
             createdAt: item?.createdAt || "-",
             chatSummary: item?.conversation_summary || "No summary available",
             dateTime: item?.createdAt ? moment(item?.createdAt).format("YYYY-MM-DD HH:mm:ss") : "-",
@@ -269,7 +269,7 @@ export default function Dashboard() {
                       <th className="px-6 py-3 font-medium">Customer Name</th>
                       <th className="px-6 py-3 font-medium">Email</th>
                       <th className="px-6 py-3 font-medium">Email Sent</th>
-                      <th className="px-6 py-3 font-medium">Talk Time</th>
+                      <th className="px-6 py-3 font-medium">Total Messages</th>
                       <th className="px-6 py-3 font-medium">Date</th>
                       <th className="px-6 py-6 font-medium flex items-center justify-center gap-2">Time <span className="text-[10px]">(UTC)</span></th>
                       {/* <th className="px-6 py-3 font-medium">Status</th> */}
