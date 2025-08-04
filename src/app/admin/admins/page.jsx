@@ -279,7 +279,7 @@ const AdminsPage = () => {
             <div className="flex flex-col gap-10">
               <div className="flex items-center justify-end">
                 <Button
-                  className="!bg-purple-500 !text-white !h-10 !font-semibold"
+                  className="!bg-purple-[#8B5CF6] !text-white !h-10 !font-semibold"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Create Admin

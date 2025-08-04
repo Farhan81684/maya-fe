@@ -79,10 +79,10 @@ const barChartData = [
   { name: "Smooth AI", value: 1450, color: colors[0]?.hex },
 ]
 
-const talkTimeData = [
-  { name: 'Maya AI', key: "smoothai", minutes: 0, avg: 0 },
+const messageCountData = [
+  { name: 'Maya AI', key: "smoothai", messages: 0, avg: 0 },
+];
 
-]
 
 const conversionsData = [
   { name: 'Maya AI', key: "smoothai", purchase: '11.92%', meeting: '25.02%' }
@@ -97,7 +97,7 @@ export default function Dashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("Today");
   const [conversations, setConversations] = useState(conversationsTemplate || []);
   const [conversationsChart, setConversationsChart] = useState(lineChartData || []);
-  const [talkTime, setTalkTime] = useState(talkTimeData || []);
+  const [talkTime, setTalkTime] = useState(messageCountData || []);
   const [conversions, setConversions] = useState(conversionsData || []);
 
   const [conversationsResponse, setConversationsResponse] = useState({});
@@ -105,13 +105,35 @@ export default function Dashboard() {
   const [purchasesResponse, setPurchasesResponse] = useState({});
   const [meetingsResponse, setMeetingsResponse] = useState({});
   const [meetingsResponseGraph, setMeetingsResponseGraph] = useState([]);
-
   const [purchaseClicks, setPurchaseClicks] = useState(0);
 
 
   useEffect(() => {
     const { startDate, endDate } = getDateRange(selectedTimeframe);
     // console.log('startDate: ', startDate, 'endDate: ', endDate);
+
+    const fetchDashboardData = async () => {
+  try {
+    const token = localStorage.getItem("access_token");
+
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard`, // adjust route if needed
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("📊 Dashboard data:", response.data);
+
+    // Update state with the fetched data
+    // setConversationsResponse(response.data);
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error?.response?.data || error.message);
+  }
+};
+
     const fetchConversations = async () => {
       console.log(localStorage.getItem("access_token"))
       try {
@@ -223,6 +245,9 @@ export default function Dashboard() {
     const fetchPurchases = async () => {
       try {
         const { startDate, endDate } = getDateRange(selectedTimeframe);
+        const token = localStorage.getItem("access_token"); 
+        console.log('token: ', token);
+
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/conversions/range`,
           {
@@ -232,7 +257,7 @@ export default function Dashboard() {
           },
           {
             headers: {
-              Authorization: localStorage.getItem("access_token")
+              Authorization: `Bearer ${token}`
             }
           }
         );
@@ -245,6 +270,7 @@ export default function Dashboard() {
     const fetchMeetings = async () => {
       try {
         const { startDate, endDate } = getDateRange(selectedTimeframe);
+        const token = localStorage.getItem("access_token");
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/scheduled-meetings/range`,
           {
@@ -254,7 +280,7 @@ export default function Dashboard() {
           },
           {
             headers: {
-              Authorization: localStorage.getItem("access_token")
+              Authorization: `Bearer ${token}`
             }
           });
         console.log('response in /scheduled-meetings: ', response?.data);
@@ -267,6 +293,7 @@ export default function Dashboard() {
     const fetchMeetingsGraph = async () => {
       try {
         const { startDate, endDate } = getDateRange(selectedTimeframe);
+        const token = localStorage.getItem("access_token");
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/scheduled-meetings/timeframe`,
           {
@@ -277,7 +304,7 @@ export default function Dashboard() {
           },
           {
             headers: {
-              Authorization: localStorage.getItem("access_token")
+              Authorization: `Bearer ${token}`
             }
           });
         console.log('response in /scheduled-meetings/graph: ', response?.data);
@@ -306,6 +333,7 @@ export default function Dashboard() {
     const fetchTalkTime = async () => {
       try {
         const { startDate, endDate } = getDateRange(selectedTimeframe);
+        const token = localStorage.getItem("access_token");
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/talk-time/range`,
           {
@@ -315,7 +343,7 @@ export default function Dashboard() {
           },
           {
             headers: {
-              Authorization: localStorage.getItem("access_token")
+              Authorization: `Bearer ${token}`
             }
           }
         );
@@ -329,6 +357,7 @@ export default function Dashboard() {
     const asyncFunction = async () => {
       await Promise.all([
         fetchConversations(),
+        fetchDashboardData(),
         fetchPurchases(),
         fetchMeetings(),
         fetchTalkTime(),
@@ -469,27 +498,21 @@ export default function Dashboard() {
   useEffect(() => {
     console.log({ talkTimeResponse, conversationsResponse, meetingsResponse, purchasesResponse, conversations, conversions, talkTime, conversationsChart });
     const keys = Object.keys(talkTimeResponse);
-    const data = talkTimeData.map((item) => {
-      const key = item.key;
-      if (keys.includes(key)) {
-        item.minutes = Number((talkTimeResponse[key] / 60).toFixed(2));
+const data = messageCountData.map((item) => {
+  const key = item.key;
+  if (keys.includes(key)) {
+    item.messages = Number(talkTimeResponse[key]);
 
-        let avgSeconds = Math.floor(talkTimeResponse[key] / conversationsResponse[key]) || 0;
-        let hours = Math.floor(avgSeconds / 3600);
-        let minutes = Math.floor((avgSeconds % 3600) / 60);
-        let seconds = avgSeconds % 60;
+    let avgMessages = Math.floor(talkTimeResponse[key] / conversationsResponse[key]) || 0;
 
-        hours = isFinite(hours) ? Math.round(hours) : 0;
-        minutes = isFinite(minutes) ? Math.round(minutes) : 0;
-        seconds = isFinite(seconds) ? Math.round(seconds) : 0;
+    item.avg = `${avgMessages} msg/convo`;
+  } else {
+    item.messages = 0;
+    item.avg = "0 msg/convo";
+  }
+  return item;
+});
 
-        item.avg = `${hours}h ${minutes}m ${seconds}s`;
-      } else {
-        item.minutes = 0;
-        item.avg = "0h 0m 0s";
-      }
-      return item;
-    });
 
     setTalkTime(data);
 
@@ -609,7 +632,7 @@ export default function Dashboard() {
             <p className="text-[1.25rem] text-[#232323] font-semibold">
               {
                 card?.name === "Talk Time"
-                  ? formatTimeFromMinutes(talkTime[0]?.minutes)
+                  ? formatTimeFromMinutes(talkTime[0]?.messages)
                   : card?.name === "Pricing Page Visits"
                     ? purchaseClicks
                     : card?.name === "Booked Meetings"
@@ -644,7 +667,7 @@ export default function Dashboard() {
         </div>
         <div>
           <h3 className="font-semibold">Messages Per Conversation</h3>
-          <p className="text-lg font-bold mt-1">{talkTime[0]?.avg ?? "0"}</p>
+          <p className="text-lg font-bold mt-1">{talkTime[0]?.avg ?? "0 msg/convo"}</p>
         </div>
       </div>
 
