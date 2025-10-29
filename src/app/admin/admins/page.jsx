@@ -133,6 +133,7 @@ const AdminsPage = () => {
   console.log(uploadedImage);
   const handleFinish = async (values) => {
     try {
+      const token = localStorage.getItem("access_token");
       setLoader(true);
       const formData = new FormData();
       uploadedImage?.forEach(({ file }) => formData.append("image", file));
@@ -143,7 +144,7 @@ const AdminsPage = () => {
           formData,
           {
             headers: {
-              Authorization: localStorage.getItem("access_token"),
+              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
@@ -159,7 +160,7 @@ const AdminsPage = () => {
               },
               {
                 headers: {
-                  Authorization: localStorage.getItem("access_token"),
+                  Authorization: `Bearer ${token}`,
                 },
               }
             )
@@ -279,7 +280,7 @@ const AdminsPage = () => {
             <div className="flex flex-col gap-10">
               <div className="flex items-center justify-end">
                 <Button
-                  className="!bg-purple-[#8B5CF6] !text-white !h-10 !font-semibold"
+                  className="!bg-blue-900 !text-white !h-10 !px-4 !rounded-xl !font-semibold hover:!bg-[#084ea6] transition-colors duration-200"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Create Admin
@@ -307,14 +308,16 @@ const AdminsPage = () => {
                       paginatedData.map((lead, i) => (
                         <tr key={i} className="border-b border-[#eee]">
                           <td className="pl-6 py-4">
+                            {console.log(
+                              "Image URL:",
+                              `http://localhost:4006${lead?.profile_pic_url}`
+                            )}
                             {lead?.profile_pic_url ? (
                               <img
                                 key={i}
-                                src={`https://api.smoothcx.ai/node/images/${lead?.profile_pic_url?.replace(
-                                  "/uploads",
-                                  ""
-                                )}`}
+                                src={`http://localhost:4006${lead?.profile_pic_url}`}
                                 className="object-cover rounded-full !w-[40px] !h-[40px]"
+                                alt="Admin"
                               />
                             ) : (
                               <Image
@@ -322,9 +325,11 @@ const AdminsPage = () => {
                                 className="object-cover rounded-full"
                                 width={40}
                                 height={40}
+                                alt="Default Admin"
                               />
                             )}
                           </td>
+
                           <td className="px-6 py-4">{lead?.name}</td>
                           <td className="px-6 py-4">{lead?.email_address}</td>
                           <td className="px-6 py-4 flex items-center gap-3">
@@ -336,7 +341,7 @@ const AdminsPage = () => {
                                   lead?.profile_pic_url
                                     ? [
                                         {
-                                          data_url: `https://api.smoothcx.ai/node/images/${lead?.profile_pic_url?.replace(
+                                          data_url: `http://localhost:4006/${lead?.profile_pic_url?.replace(
                                             "/uploads",
                                             ""
                                           )}`,
@@ -348,7 +353,7 @@ const AdminsPage = () => {
                                   lead?.profile_pic_url
                                     ? [
                                         {
-                                          path: `https://api.smoothcx.ai/node/images/${lead?.profile_pic_url?.replace(
+                                          path: `http://localhost:4006/${lead?.profile_pic_url?.replace(
                                             "/uploads",
                                             ""
                                           )}`,
@@ -499,7 +504,7 @@ const AdminsPage = () => {
                 type="primary"
                 htmlType="submit"
                 block
-                className="!h-10 !bg-purple-500 !text-white !font-semibold"
+                className="!bg-blue-900 !text-white !h-10 !px-4 !rounded-xl !font-semibold hover:!bg-[#084ea6] transition-colors duration-200"
               >
                 Create
               </Button>
