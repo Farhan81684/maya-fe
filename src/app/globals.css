@@ -4,6 +4,8 @@
 @tailwind utilities;
 
 
+
+
 @theme {
   --breakpoint-5xl: 1600px;
   --breakpoint-4xl: 1500px;
@@ -28,6 +30,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+html, body {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body, input, select {
@@ -156,4 +162,32 @@ a {
 /* styles/globals.css */
 .scrollbar {
   scroll-behavior: smooth;
+}
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.25s ease-out;
+}
+
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
 }
