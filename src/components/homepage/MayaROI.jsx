@@ -15,11 +15,11 @@ export default function MayaPaysSection() {
     bg-center          /* perfectly centered */
     bg-no-repeat
           rounded-t-[48px]
-          px-10 lg:px-20 py-20
+          px-4 lg:px-20 py-10
           overflow-hidden
         "
       >
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center relative">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center relative">
 
           {/* ========= LEFT ========= */}
           <div className="text-white">
@@ -57,8 +57,8 @@ export default function MayaPaysSection() {
   <Image
     src={maya}
     alt="Maya"
-    width={600}
-    height={600}
+    width={1000}
+    height={1000}
     className="object-contain"
     priority
   />

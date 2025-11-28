@@ -25,7 +25,7 @@ export default function PartnerBar() {
   ];
 
   return (
-    <section className="relative w-full py-10 mt-70 bg-white overflow-hidden">
+    <section className="relative w-full py-10 mt-20 bg-white overflow-hidden">
 
       {/* Fade edges */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white to-transparent z-10" />

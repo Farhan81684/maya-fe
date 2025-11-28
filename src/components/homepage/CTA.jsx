@@ -3,7 +3,7 @@
 
 export default function MayaCTABooking() {
   return (
-    <section className="w-full px-4 lg:px-10 py-14">
+    <section className="w-full px-4 mt-20 mb-20 lg:px-10 py-14">
       {/* MAIN CONTAINER (reduced width) */}
       <div
         className="
@@ -37,28 +37,29 @@ export default function MayaCTABooking() {
           </button>
         </div>
 
-
 <div
   className="
+    relative
     bg-white/90
     rounded-2xl
-    w-full lg:w-[550px] xl:w-[650px]   /* wider on big screens */
-    h-[420px] md:h-[520px] lg:h-[600px]
-    border border-white/10
-    overflow-hidden
+    w-full lg:w-[550px] xl:w-[650px]
+    h-[350px] md:h-[380px] lg:h-[400px]
     shadow-xl
-    flex justify-center items-center
+    overflow-visible   /* allow iframe to overflow */
   "
 >
   <iframe
     src="https://calendly.com/hubaix-info/booking-consultation"
-    className="w-full h-full"
+    className="
+      absolute 
+      top-[-80px]        /* iframe goes UP */
+      left-0 
+      w-full             /* width SAME as parent */
+      h-[650px]          /* bigger height — goes down too */
+    "
     frameBorder="0"
   ></iframe>
 </div>
-
-
-
 
 
       </div>

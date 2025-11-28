@@ -33,35 +33,45 @@ export default function WhoWeHelp() {
         </h2>
 
         {/* ✅ 3 IN ROW + SQUARE */}
-<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 justify-center">
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 mx-auto  justify-center">
   {items.map((item) => (
     <div
       key={item.title}
-      className="
-        bg-[#0F2B61]
-        rounded-3xl
-        p-4
-        flex flex-col
-        items-center
-        shadow-md
-      "
+      className="w-[70%] mx-auto sm:w-[75%] lg:w-[65%]" // 🔹 narrower cards
     >
-      {/* ✅ INNER IMAGE WRAPPER WITH RADIUS + NO STRETCH */}
-      <div className="w-full rounded-2xl overflow-hidden">
-        <Image
-          src={item.img}
-          alt={item.title}
-          className="w-full h-auto object-cover"
-        />
-      </div>
+      {/* 🔵 FULL SQUARE CARD */}
+      <div
+        className="
+          aspect-square                   /* ✅ card = perfect square */
+          bg-[#0F2B61]
+          rounded-3xl
+          p-4
+          flex flex-col
+          items-center
+          shadow-md
+          h-full
+        "
+      >
+        {/* IMAGE AREA (flex-1 takes remaining height) */}
+        <div className="w-full flex-1 rounded-2xl overflow-hidden">
+          <Image
+            src={item.img}
+            alt={item.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-      {/* ✅ TITLE */}
-      <p className="text-white text-center text-sm font-medium mt-3">
-        {item.title}
-      </p>
+        {/* TEXT AREA — BIGGER BLUE SECTION BELOW IMAGE */}
+        <div className="w-full mt-3 py-4 px-2">
+          <p className="text-white text-center text-base sm:text-lg font-semibold">
+            {item.title}
+          </p>
+        </div>
+      </div>
     </div>
   ))}
 </div>
+
 
 
       </div>

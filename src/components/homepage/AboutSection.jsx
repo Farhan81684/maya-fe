@@ -8,22 +8,23 @@ export default function AboutSection() {
   return (
     <section className="w-full bg-white pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
-              <div
-                className="
-                       bg-[url('/bg/mcbg.png')]     bg-[url('/bg/mcbg.png')]
-    bg-cover           /* image ALWAYS covers full width */
-    bg-center          /* perfectly centered */
-    bg-no-repeat
-                      rounded-t-[60px]
-                  rounded-b-none
-                  max-w-7xl 
-                  w-full
-                  px-4 sm:px-6 md:px-10 
-                  pt-4 sm:pt-6 md:pt-10
-                  pb-0   /* ✅ remove bottom padding */
-                "
-              >
-                <h2 className="text-center text-3xl md:text-5xl font-bold mb-6 text-white">
+<div
+  className="
+    bg-[url('/bg/mcbg.png')]
+    bg-cover bg-center bg-no-repeat
+    rounded-t-[60px]
+    rounded-b-none
+    max-w-7xl 
+    w-full
+    px-4 sm:px-6 md:px-10 
+    pt-4 sm:pt-6 md:pt-10
+    pb-0
+    mt-2 sm:mt-10 md:mt-12   /* ✅ extra space from top */
+  "
+>
+
+<div className="relative z-10 mt-12 mb-12">
+                  <h2 className="text-center text-3xl md:text-5xl font-bold mb-6 text-white">
                   Missed Calls = <span className="text-blue-500">Missed Patients</span>
                 </h2>
 
@@ -43,12 +44,13 @@ export default function AboutSection() {
     priority
   />
 </div>
+</div>
 
               </div>
 
 
         {/* ✅ TEXT + TABLET SECTION */}
-        <div className="flex flex-col lg:flex-row items-center mt-12 justify-between gap-12">
+        <div className="flex flex-col mt-12 lg:flex-row items-center mt-12 justify-between gap-12">
           {/* ✅ LEFT TEXT */}
           <div className="flex-1">
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">

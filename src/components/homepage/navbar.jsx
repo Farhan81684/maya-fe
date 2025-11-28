@@ -29,7 +29,7 @@ export default function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSection("hero")}
           >
-            <Image src={LogoImage} alt="Logo" width={36} height={36} />
+            <Image src={LogoImage} alt="Logo" width={46} height={36} />
           </div>
 
           {/* Desktop Menu */}
@@ -40,15 +40,22 @@ export default function Navbar() {
             <li onClick={() => scrollToSection("affiliates")} className="hover:text-white cursor-pointer">Affiliates</li>
           </ul>
 
-          {/* CTA */}
-          <div className="hidden md:block">
-            <button 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition"
-              onClick={() => scrollToSection("contact")}
-            >
-              Book a Demo
-            </button>
-          </div>
+<div className="hidden md:block">
+  <button 
+    className="
+      text-white py-2 rounded-md text-sm transition
+      bg-[linear-gradient(90deg,#0176F2_0%,#01448C_100%)]
+      hover:opacity-90
+      px-8        /* width increased */
+      min-w-[180px]  /* ensures the button looks wide */
+    "
+    onClick={() => scrollToSection('contact')}
+  >
+    Book a Demo
+  </button>
+</div>
+
+
 
           {/* Mobile Toggle */}
           <button className="md:hidden text-white/90" onClick={() => setOpen(!open)}>

@@ -35,14 +35,16 @@ html, body {
   overflow-x: hidden;
   width: 100%;
 }
-
-body, input, select {
-  font-family: var(--font-inter), sans-serif;
+html, body {
+  font-family: var(--font-poppins), sans-serif !important;
 }
 
-.poppins {
-  font-family: var(--font-poppins), sans-serif;
+
+.font-poppins {
+  font-family: var(--font-poppins);
 }
+
+
 
 button, .button {
   cursor: pointer;

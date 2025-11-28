@@ -40,7 +40,6 @@ function renderCell(value, isBlueColumn = false) {
     );
   }
 
-  // ⭐ FIX: NORMAL NUMBERS/TEXT BECOME WHITE ONLY IN BLUE COLUMN
   return (
     <span
       className={
@@ -56,42 +55,66 @@ export default function PricingPlans() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="w-full bg-gradient-to-b from-[#0B1A33] to-[#041022] py-20 text-white">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="w-full py-20 px-2 sm:px-4 lg:px-6 xl:px-10">
+      
+      {/* OUTER CONTAINER (THE ONE YOU WANTED) */}
+<div
+  className="
+    w-full
+    mx-auto
+    bg-gradient-to-b from-[#0B1A33] to-[#041022]
+    rounded-t-[32px] md:rounded-t-[40px] lg:rounded-t-[48px]
+    
+    px-16 sm:px-20 md:px-28 lg:px-36
+    pt-12 md:pt-14 lg:pt-16
+    pb-16 md:pb-18 lg:pb-20
+
+    shadow-2xl
+    text-white
+
+    max-w-full
+    sm:max-w-[95%]
+    md:max-w-[90%]
+    lg:max-w-[1300px]
+    xl:max-w-[1450px]
+    2xl:max-w-[1500px]
+  "
+>
+
+
+
+        
         {/* TITLE */}
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-14">
+        <h2 className="text-center text-3xl md:text-4xl font-extrabold mb-14">
           Our <span className="text-blue-400">Plans</span> For Every{" "}
           <span className="text-blue-400">Practice</span> Type
         </h2>
 
         {/* PLAN CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           {[
+
             {
               title: "Starter Plan",
               subtitle:
                 "AI Chatbot for Basic Customer Interactions (Non-PHI Use Cases)",
-              body: `Ideal for small wellness practices looking to automate general
-              queries and appointment booking without handling sensitive patient
-              information.`,
+              body: `Ideal for small wellness practices looking to automate general queries and appointment booking without handling sensitive patient information.`,
               note: "Pricing starts from as low as $99/month",
             },
             {
               title: "Professional Plan",
               subtitle: "Agentic AI Assistant for Individual Practitioners",
-              body: `Designed for solo practitioners, this HIPAA-compliant AI agent handles
-              front desk tasks, patient interactions, appointment bookings,
-              reminders, and more — all personalized and secure.`,
+              body: `Designed for solo practitioners, this HIPAA-compliant AI agent handles front desk tasks, patient interactions, appointment bookings, reminders, and more — all personalized and secure.`,
               note: "Pricing starts from as low as $99/month",
             },
             {
               title: "Clinic Plan",
               subtitle:
                 "Comprehensive Front Desk for Multi-Practitioner Clinics",
-              body: `A scalable, all-in-one solution for clinics with multiple specialists.
-              Manages patient interactions across chat, messaging and calls.`,
+              body: `A scalable, all-in-one solution for clinics with multiple specialists. Manages patient interactions across chat, messaging and calls.`,
               note: "Pricing starts from as low as $99/month",
             },
+
           ].map((p, i) => (
             <div
               key={i}
@@ -126,12 +149,15 @@ export default function PricingPlans() {
         </div>
 
         {/* BUTTON */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-blue-300 underline text-base hover:text-blue-400"
-        >
-          {open ? "Hide Features" : "View All Features"}
-        </button>
+<div className="flex justify-center mt-4">
+  <button
+    onClick={() => setOpen(!open)}
+    className="text-blue-300 underline text-base hover:text-blue-400"
+  >
+    {open ? "Hide Features" : "View All Features"}
+  </button>
+</div>
+
 
         {/* TABLE */}
         <div
@@ -141,9 +167,11 @@ export default function PricingPlans() {
         >
           <div className="w-full overflow-x-auto">
             <table className="w-full border-collapse rounded-t-3xl shadow-xl">
+
               {/* TABLE HEADER */}
               <thead>
                 <tr>
+
                   {/* ALL FEATURES LEFT HEADER */}
                   <th className="w-[22%] rounded-tl-3xl align-top py-10 px-6">
                     <span className="text-[40px] font-bold text-white leading-none">
@@ -155,10 +183,9 @@ export default function PricingPlans() {
                     </span>
                   </th>
 
-                  {/* STARTER (WHITE) */}
+                  {/* STARTER */}
                   <th className="w-[25%]">
-                 <div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
-
+                    <div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
                       <h3 className="text-xl font-bold mb-1">Starter Plan</h3>
                       <p className="text-xs text-gray-500 mb-4">
                         AI Chatbot for Basic Customer Interactions
@@ -169,17 +196,17 @@ export default function PricingPlans() {
                     </div>
                   </th>
 
-                  {/* PROFESSIONAL (BLUE, BIGGER & RAISED) */}
-<th className="w-[30%] relative overflow-hidden rounded-t-3xl">
-
-<div className="
-  py-12 px-6 rounded-t-3xl 
-  bg-gradient-to-b from-[#1F4FCF] to-[#173B9B]
-  text-white shadow-2xl 
-  text-left -mt-6 
-  scale-[1.03]
-">
-
+                  {/* PROFESSIONAL */}
+                  <th className="w-[30%] relative overflow-hidden rounded-t-3xl">
+                    <div
+                      className="
+                        py-12 px-6 rounded-t-3xl 
+                        bg-gradient-to-b from-[#1F4FCF] to-[#173B9B]
+                        text-white shadow-2xl 
+                        text-left -mt-6 
+                        scale-[1.03]
+                      "
+                    >
                       <h3 className="text-xl font-bold mb-1">
                         Professional Plan
                       </h3>
@@ -192,10 +219,9 @@ export default function PricingPlans() {
                     </div>
                   </th>
 
-                  {/* CLINIC (WHITE) */}
+                  {/* CLINIC */}
                   <th className="w-[25%]">
-<div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
-
+                    <div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
                       <h3 className="text-xl font-bold mb-1">Clinic Plan</h3>
                       <p className="text-xs text-gray-500 mb-4">
                         Multi-Practitioner AI Front Desk
@@ -205,6 +231,7 @@ export default function PricingPlans() {
                       </button>
                     </div>
                   </th>
+
                 </tr>
               </thead>
 
@@ -213,56 +240,21 @@ export default function PricingPlans() {
                 {[
                   ["HIPAA Compliance", "x", "✔", "✔"],
                   ["BAA Coverage", "x", "✔", "✔"],
-                  [
-                    "AI Chatbot (Website Widget)",
-                    "✔",
-                    "(Limited Config)",
-                    "(Full Config)",
-                  ],
+                  ["AI Chatbot (Website Widget)", "✔", "(Limited Config)", "(Full Config)"],
                   ["AI Chat Agent (WhatsApp)", "✔", "✔", "✔"],
                   ["AI Voice Agent (Inbound Calls One Number)", "x", "✔", "✔"],
                   ["LLM Tokens (Millions)", "0.2", "1", "3"],
                   ["Message Volume", "1,000", "5,000", "15,000"],
-                  [
-                    "Inbound Phone Calls - AI Voice Minutes",
-                    "0",
-                    "500",
-                    "1500",
-                  ],
+                  ["Inbound Phone Calls - AI Voice Minutes", "0", "500", "1500"],
                   ["WhatsApp Sessions", "50", "250", "750"],
                   ["SMS Reminders", "20", "100", "300"],
                   ["Emails", "20", "100", "300"],
-                  [
-                    "Appointment Booking System",
-                    "Basic (No Calendar Sync)",
-                    "Advanced (With Calendar Sync)",
-                    "Advanced Multi-Provider",
-                  ],
-                  [
-                    "Pre-Screening Intake Forms",
-                    "Basic Template",
-                    "Dynamic Form Builder",
-                    "Dynamic Form Builder",
-                  ],
+                  ["Appointment Booking System", "Basic (No Calendar Sync)", "Advanced (With Calendar Sync)", "Advanced Multi-Provider"],
+                  ["Pre-Screening Intake Forms", "Basic Template", "Dynamic Form Builder", "Dynamic Form Builder"],
                   ["CRM Integration (If Required)", "x", "✔", "✔"],
-                  [
-                    "Calendar Integration (Google / Outlook) OR Hubspot/Calendly",
-                    "x",
-                    "✔",
-                    "✔",
-                  ],
-                  [
-                    "Appointment Rescheduling (Link Sent On Email)",
-                    "x",
-                    "✔",
-                    "✔",
-                  ],
-                  [
-                    "Admin Dashboard",
-                    "Basic Metrics",
-                    "Full Dashboard & Analytics",
-                    "Multi-User Admin Dashboards",
-                  ],
+                  ["Calendar Integration (Google / Outlook) OR Hubspot/Calendly", "x", "✔", "✔"],
+                  ["Appointment Rescheduling (Link Sent On Email)", "x", "✔", "✔"],
+                  ["Admin Dashboard", "Basic Metrics", "Full Dashboard & Analytics", "Multi-User Admin Dashboards"],
                   ["Reporting & Analytics", "x", "✔", "(Exportable)"],
                   ["Team Members", "1", "1", "3 (INCLUDED)"],
                   ["Additional Practitioners", "x", "x", "$50/User/Mo"],
@@ -273,44 +265,41 @@ export default function PricingPlans() {
                   ["PHI Detection & Redaction", "x", "✔", "(Customizable)"],
                   ["Consent Tracking", "x", "✔", "✔"],
                   ["Secure Vector Search (RAG)", "x", "✔", "✔"],
-                  [
-                    "Multilingual Support",
-                    "x",
-                    "(English + 1 Supported Language)",
-                    "(English + 1 Supported Language)",
-                  ],
+                  ["Multilingual Support", "x", "(English + 1 Supported Language)", "(English + 1 Supported Language)"],
                   ["Custom Branding", "x", "✔", "✔"],
                   ["Dedicated Account Manager", "x", "x", "✔"],
-                  [
-                    "Support Level",
-                    "Email Only",
-                    "Priority Chat",
-                    "Priority Chat + Phone",
-                  ],
+                  ["Support Level", "Email Only", "Priority Chat", "Priority Chat + Phone"],
                 ].map((row, idx) => (
                   <tr key={idx} className="border-t border-gray-200">
+
                     {/* FEATURE NAME */}
                     <td className="py-6 px-6 bg-white font-semibold text-gray-900">
                       {row[0]}
                     </td>
 
-                    {/* PLANS */}
-                    <td className="text-center bg-white  py-6">
+                    {/* STARTER */}
+                    <td className="text-center bg-white py-6">
                       {renderCell(row[1])}
                     </td>
+
+                    {/* PROFESSIONAL */}
                     <td className="text-center py-6 bg-gradient-to-b from-[#1F4FCF] to-[#173B9B]">
                       {renderCell(row[2], true)}
                     </td>
 
+                    {/* CLINIC */}
                     <td className="text-center py-6 bg-white">
                       {renderCell(row[3])}
                     </td>
+
                   </tr>
                 ))}
               </tbody>
+
             </table>
           </div>
         </div>
+
       </div>
     </section>
   );
