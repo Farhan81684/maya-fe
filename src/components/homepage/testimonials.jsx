@@ -12,7 +12,7 @@ const testimonials = [
     role: "Family Chiropractor, Manchester, UK",
     img: dummy,
     text:
-      "ConveraiX has completely transformed how we handle patient inquiries. We went from missing dozens of patients a week to having an AI agent booking appointments and answering questions 24/7. The HIPAA compliance gives me total peace of mind."
+      "ConveraiX has completely transformed how we handle patient inquiries. We went from missing dozens of patients a week to having an AI agent booking appointments and answering questions 24/7. "
   },
 
   {
@@ -146,7 +146,7 @@ const slideItems = [...baseSlides, ...clones];
 
 
   return (
-    <section className="w-full py-20">
+    <section className="w-full py-10">
       <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
         Client <span className="text-blue-500">Testimonials</span>
       </h2>
@@ -174,40 +174,55 @@ const slideItems = [...baseSlides, ...clones];
   style={{ width: `${100 / visible}%` }}
 >
   <div
-    className="bg-gradient-to-b from-[#2257CE] to-[#0A1D3A] text-white 
+    className="
+              bg-[url('/bg/tbg.png')]
+          bg-cover bg-center bg-no-repeat
+    text-white 
     rounded-xl shadow-lg overflow-hidden 
-    h-[380px] flex flex-col justify-between"
+    h-[400px] flex flex-col justify-between"
   >
     
     <div className="p-5">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <Image
-            src={t.img}
-            alt={t.name}
-            width={45}
-            height={45}
-            className="rounded-full object-cover"
-          />
-          <div>
-            <h3 className="font-semibold text-[17px]">{t.name}</h3>
-            <p className="text-xs text-gray-200">{t.role}</p>
-          </div>
-        </div>
+<div className="flex items-start justify-between mb-6">
+  {/* LEFT: Avatar + Name + Role */}
+  <div className="flex items-start gap-2">
+    <Image
+      src={t.img}
+      alt={t.name}
+      width={40}
+      height={40}
+      className="rounded-full object-cover"
+    />
 
-        <div className="flex gap-1">
+    <div className="leading-tight">
+      <h3 className="text-white font-semibold text-[16px]">
+        {t.name}
+      </h3>
+
+      {/* ROLE + STARS — same line */}
+      <div className="flex items-center gap-2">
+        <p className="text-[10px] text-gray-200 opacity-90">
+          {t.role}
+        </p>
+
+        {/* STARS aligned with role */}
+        <div className="flex gap-[2px]">
           {Array.from({ length: 5 }).map((_, idx) => (
-            <FaStar key={idx} size={13} className="text-yellow-400" />
+            <FaStar key={idx} size={12} className="text-yellow-400" />
           ))}
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <p className="text-sm text-gray-100 leading-relaxed line-clamp-5">
+
+
+      <p className="text-md mt-10 text-gray-100 leading-relaxed ">
         {t.text}
       </p>
     </div>
 
-    <div className="h-3 bg-gradient-to-r from-blue-500 to-blue-400 rounded-b-xl" />
   </div>
 </div>
 

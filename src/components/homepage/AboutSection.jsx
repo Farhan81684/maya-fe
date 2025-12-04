@@ -6,7 +6,7 @@ import Tablet from "../../../public/assets/homepage/docs.png";
 
 export default function AboutSection() {
   return (
-    <section className="w-full bg-white pt-32 pb-24">
+    <section className="w-full bg-white pt-6 pb-24">
       <div className="max-w-7xl mx-auto px-6">
 <div
   className="
@@ -50,7 +50,8 @@ export default function AboutSection() {
 
 
         {/* ✅ TEXT + TABLET SECTION */}
-        <div className="flex flex-col mt-12 lg:flex-row items-center mt-12 justify-between gap-12">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center mt-20 justify-between gap-12 px-6 md:px-10">
+
           {/* ✅ LEFT TEXT */}
           <div className="flex-1">
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">

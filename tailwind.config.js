@@ -4,11 +4,12 @@ module.exports = {
     "./src/app/**/*.{js,jsx,ts,tsx}",
     "./src/components/**/*.{js,jsx,ts,tsx}",
   ],
-  theme: {
-    extend: {
-      fontFamily: {
-        poppins: ["var(--font-poppins)", "sans-serif"],
-      },
+theme: {
+  extend: {
+    fontFamily: {
+      poppins: ["Poppins", "sans-serif"],
     },
   },
+}
+
 };

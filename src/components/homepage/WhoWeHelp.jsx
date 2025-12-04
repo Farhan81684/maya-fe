@@ -37,7 +37,7 @@ export default function WhoWeHelp() {
   {items.map((item) => (
     <div
       key={item.title}
-      className="w-[70%] mx-auto sm:w-[75%] lg:w-[65%]" // 🔹 narrower cards
+      className="w-[95%] mx-auto sm:w-[95%] lg:w-[95%]" // 🔹 narrower cards
     >
       {/* 🔵 FULL SQUARE CARD */}
       <div

@@ -25,7 +25,7 @@ echo "🏗️ Building Next.js app..."
 npm run build
 
 echo "🔁 Restarting PM2 process ID 8 (convoai-frontend)..."
-pm2 restart 16
+pm2 restart maya-frontend
 pm2 save
 EOF
 

@@ -1,16 +1,14 @@
 "use client";
 
-
 export default function MayaCTABooking() {
   return (
-    <section className="w-full px-4 mt-20 mb-20 lg:px-10 py-14">
-      {/* MAIN CONTAINER (reduced width) */}
+    <section className="w-full px-4 py-8 lg:px-10">
+      {/* MAIN CONTAINER */}
       <div
         className="
           max-w-7xl mx-auto
-         bg-gradient-to-b from-[#0176F2] to-[#192027]
-
-
+                   bg-[url('/bg/mcbg.png')]
+          bg-cover bg-center bg-no-repeat
           rounded-[48px]
           px-8 lg:px-14 py-14
           flex flex-col lg:flex-row items-center justify-between
@@ -26,7 +24,7 @@ export default function MayaCTABooking() {
           <button
             className="
               border border-white text-white
-              px-6 py-2 rounded-full
+              px-6 py-2 rounded-sm
               font-medium text-sm
               hover:bg-white hover:text-[#0D1023]
               transition
@@ -37,31 +35,28 @@ export default function MayaCTABooking() {
           </button>
         </div>
 
-<div
-  className="
-    relative
-    bg-white/90
-    rounded-2xl
-    w-full lg:w-[550px] xl:w-[650px]
-    h-[350px] md:h-[380px] lg:h-[400px]
-    shadow-xl
-    overflow-visible   /* allow iframe to overflow */
-  "
->
-  <iframe
-    src="https://calendly.com/hubaix-info/booking-consultation"
-    className="
-      absolute 
-      top-[-80px]        /* iframe goes UP */
-      left-0 
-      w-full             /* width SAME as parent */
-      h-[650px]          /* bigger height — goes down too */
-    "
-    frameBorder="0"
-  ></iframe>
-</div>
-
-
+        {/* ========= RIGHT (FIXED SIZE) ========= */}
+        <div
+          className="
+            relative
+            bg-black
+            rounded-[32px]
+            w-full lg:w-[550px] xl:w-[650px]
+            h-[250px] md:h-[300px] lg:h-[350px]   /* REDUCED HEIGHTS */
+            overflow-hidden
+            shadow-xl
+          "
+        >
+          <iframe
+            src="https://calendly.com/hubaix-info/booking-consultation"
+            className="
+              absolute inset-0
+              w-full
+              h-full
+              border-none
+            "
+          />
+        </div>
       </div>
     </section>
   );

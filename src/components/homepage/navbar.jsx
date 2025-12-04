@@ -22,18 +22,18 @@ export default function Navbar() {
 
 
       <nav className="w-full border-b-0">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-20 py-4">
 
           {/* Logo */}
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSection("hero")}
           >
-            <Image src={LogoImage} alt="Logo" width={46} height={36} />
+            <Image src={LogoImage} alt="Logo" width={55} height={55} />
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-10 text-white/90 text-sm">
+          <ul className="hidden md:flex items-center gap-10 text-gray-100 text-sm">
             <li onClick={() => scrollToSection("features")} className="hover:text-white cursor-pointer">Features</li>
             <li onClick={() => scrollToSection("pricing")} className="hover:text-white cursor-pointer">Pricing</li>
             <li onClick={() => scrollToSection("contact")} className="hover:text-white cursor-pointer">Contact</li>
@@ -58,7 +58,7 @@ export default function Navbar() {
 
 
           {/* Mobile Toggle */}
-          <button className="md:hidden text-white/90" onClick={() => setOpen(!open)}>
+          <button className="md:hidden text-gray-600" onClick={() => setOpen(!open)}>
             {open ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
@@ -66,7 +66,7 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {open && (
           <div className="md:hidden bg-transparent px-6 pb-4 animate-slideDown">
-            <ul className="flex flex-col gap-4 text-white/90 text-sm mt-4">
+            <ul className="flex flex-col gap-4 text-gray-100 text-sm mt-4">
               <li onClick={() => scrollToSection("features")} className="hover:text-white cursor-pointer">Features</li>
               <li onClick={() => scrollToSection("pricing")} className="hover:text-white cursor-pointer">Pricing</li>
               <li onClick={() => scrollToSection("contact")} className="hover:text-white cursor-pointer">Contact</li>

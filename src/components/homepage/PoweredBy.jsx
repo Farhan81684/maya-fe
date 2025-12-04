@@ -8,7 +8,7 @@ import agent1 from "../../../public/assets/homepage/agents.png";
 
 export default function PoweredBy() {
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-white pt-18">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* ✅ Card Container */}
@@ -30,19 +30,19 @@ export default function PoweredBy() {
         What is Converaix?
       </div>
 
-      <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-white mb-6 drop-shadow-lg">
-        <span className="text-blue-500">Powered</span> by Hubaix <br />
-        Transforming <br />
-        <span className="text-blue-500">Industries</span> with AI
+      <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white mb-6 drop-shadow-lg">
+        <span className="text-blue-500">Powered</span> by Hubaix 
+        Transforming
+        <span className="text-blue-500"> Industries</span> with AI
       </h2>
 
-      <p className="text-gray-300 text-lg leading-relaxed mb-4">
+      <p className="text-gray-600 text-lg leading-relaxed mb-4">
         Converaix is a suite of intelligent AI agents developed by Hubaix,
         a Texas-based AI solutions company with 8+ years of experience
         building secure, scalable automation for regulated industries.
       </p>
 
-      <p className="text-gray-300 text-lg leading-relaxed">
+      <p className="text-gray-600 text-lg leading-relaxed">
         Each Converaix agent is tailored for a specific domain. Maya is our
         healthcare & wellness specialist, designed to manage patient
         engagement, appointment booking, and front-desk tasks with full
@@ -50,8 +50,8 @@ export default function PoweredBy() {
       </p>
     </div>
 
-<div className="flex justify-center items-center">
-  <div className="w-[450px] sm:w-[550px] md:w-[650px] lg:w-[800px] xl:w-[900px]">
+<div className="flex justify-center mt-8 items-center">
+  <div className="w-[500px] sm:w-[650px] md:w-[800px] lg:w-[950px] xl:w-[1100px]">
     <Image
       src={agent1}
       alt="AI Agent"
@@ -63,9 +63,10 @@ export default function PoweredBy() {
 
 
 
+
     {/* BOTTOM — BULLET POINTS */}
     <div className="lg:col-span-2 mt-8">
-      <ul className="space-y-4 text-gray-200 text-lg">
+      <ul className="space-y-4 text-gray-600 text-lg">
         <li className="flex gap-3">
           <FaCheck className="text-green-500 mt-1" />
           US headquartered in Texas; serving clients across USA, Europe & Middle East.

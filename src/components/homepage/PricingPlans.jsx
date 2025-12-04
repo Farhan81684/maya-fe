@@ -7,8 +7,8 @@ function renderCell(value, isBlueColumn = false) {
   if (value === "✔") {
     return (
       <div className="flex items-center justify-center">
-        <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center">
-          <FaCheck className="text-green-600 text-sm" />
+        <div className="w-7 h-7 rounded-full bg-[#09FF2E]/26 flex items-center justify-center">
+          <FaCheck className="text-[#09FF2E] text-sm" />
         </div>
       </div>
     );
@@ -17,28 +17,14 @@ function renderCell(value, isBlueColumn = false) {
   if (value === "x") {
     return (
       <div className="flex items-center justify-center">
-        <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center">
-          <FaTimes className="text-red-500 text-sm" />
+        <div className="w-7 h-7 rounded-full bg-[#FF0909]/26 flex items-center justify-center">
+          <FaTimes className="text-[#FF0909] text-sm" />
         </div>
       </div>
     );
   }
 
-  if (value.includes("Limited")) {
-    return (
-      <span className="text-xs px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full">
-        {value}
-      </span>
-    );
-  }
 
-  if (value.includes("Full")) {
-    return (
-      <span className="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-        {value}
-      </span>
-    );
-  }
 
   return (
     <span
@@ -55,43 +41,31 @@ export default function PricingPlans() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="w-full py-20 px-2 sm:px-4 lg:px-6 xl:px-10">
-      
-      {/* OUTER CONTAINER (THE ONE YOU WANTED) */}
-<div
-  className="
-    w-full
-    mx-auto
-    bg-gradient-to-b from-[#0B1A33] to-[#041022]
-    rounded-t-[32px] md:rounded-t-[40px] lg:rounded-t-[48px]
-    
-    px-16 sm:px-20 md:px-28 lg:px-36
-    pt-12 md:pt-14 lg:pt-16
-    pb-16 md:pb-18 lg:pb-20
-
-    shadow-2xl
-    text-white
-
-    max-w-full
-    sm:max-w-[95%]
-    md:max-w-[90%]
-    lg:max-w-[1300px]
-    xl:max-w-[1450px]
-    2xl:max-w-[1500px]
-  "
->
-
-
-
-        
-        {/* TITLE */}
+    <section className="w-full py-12 px-2 sm:px-4 lg:px-6 xl:px-10">
+      {/* OUTER CONTAINER */}
+      <div
+        className="
+          w-full
+          mx-auto
+          bg-[url('/bg/mcbg.png')]
+          rounded-t-[32px] md:rounded-t-[40px] lg:rounded-t-[48px]
+          bg-cover bg-center bg-no-repeat
+          px-16 sm:px-20 md:px-28 lg:px-36
+          pt-12 md:pt-14 lg:pt-16
+          pb-16 md:pb-18 lg:pb-20
+          shadow-2xl
+          text-white
+          max-w-[1290px]   /* Set consistent max-width */
+        "
+      >
+        {/* Title */}
         <h2 className="text-center text-3xl md:text-4xl font-extrabold mb-14">
           Our <span className="text-blue-400">Plans</span> For Every{" "}
           <span className="text-blue-400">Practice</span> Type
         </h2>
 
-        {/* PLAN CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+        {/* Plan Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {[
 
             {
@@ -118,7 +92,8 @@ export default function PricingPlans() {
           ].map((p, i) => (
             <div
               key={i}
-              className="px-6 py-8 rounded-3xl bg-gradient-to-b from-[#1840A8] to-[#0B1A33]
+              
+              className="px-5 py-8 rounded-3xl bg-[linear-gradient(130deg,#0176F2_0%,#192027_100%)]
               border border-[#4B80EA] shadow-xl flex flex-col justify-between min-h-[480px] text-left"
             >
               <div>
@@ -136,7 +111,7 @@ export default function PricingPlans() {
               </div>
 
               <div>
-                <button className="w-full px-4 py-3 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition">
+                <button className="w-full px-2 py-3 bg-[#0176F2] rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition">
                   Book a Demo to Unlock Alpha Pricing
                 </button>
 
@@ -166,137 +141,133 @@ export default function PricingPlans() {
           }`}
         >
           <div className="w-full overflow-x-auto">
-            <table className="w-full border-collapse rounded-t-3xl shadow-xl">
+<table className="w-full mt-10 table-fixed  border-collapse rounded-t-3xl shadow-xl">
+  <thead>
+    <tr>
+      {/* LEFT HEADER — All Features */}
+      <th className="w-1/4 rounded-tl-3xl align-top py-10 px-6 bg-transparent text-left">
+        <div className="-mt-2">
+          <span className="text-[42px] font-extrabold text-white block leading-[1]">
+            All
+          </span>
+          <span className="text-[42px] font-extrabold text-blue-500 block leading-[1]">
+            Features
+          </span>
+        </div>
+      </th>
 
-              {/* TABLE HEADER */}
-              <thead>
-                <tr>
+      {/* STARTER PLAN */}
+<th className="w-1/4 align-top">
+  <div className="h-full min-h-[260px] md:min-h-[280px] lg:min-h-[300px] 
+      py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md 
+      flex flex-col justify-between">
+    <h3 className="text-xl font-bold mb-1">Starter Plan</h3>
+    <p className="text-xs text-gray-500 mb-4">
+      AI Chatbot for Basic Customer Interactions (Non-PHI Use Cases)
+    </p>
+    <button className="bg-blue-600 text-white px-5 py-2 rounded-lg text-xs font-medium">
+      Book a Demo to Unlock Alpha Pricing
+    </button>
+  </div>
+</th>
 
-                  {/* ALL FEATURES LEFT HEADER */}
-                  <th className="w-[22%] rounded-tl-3xl align-top py-10 px-6">
-                    <span className="text-[40px] font-bold text-white leading-none">
-                      All
-                    </span>
-                    <br />
-                    <span className="text-[40px] font-bold text-blue-500 leading-none">
-                      Features
-                    </span>
-                  </th>
 
-                  {/* STARTER */}
-                  <th className="w-[25%]">
-                    <div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
-                      <h3 className="text-xl font-bold mb-1">Starter Plan</h3>
-                      <p className="text-xs text-gray-500 mb-4">
-                        AI Chatbot for Basic Customer Interactions
-                      </p>
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium">
-                        Book Demo
-                      </button>
-                    </div>
-                  </th>
+<th className="w-1/4 align-top">
+  <div className="
+      h-full min-h-[260px] md:min-h-[280px] lg:min-h-[300px]
+      py-10 px-6 rounded-t-3xl shadow-2xl
+      bg-[linear-gradient(90deg,#003063_0%,#0061C9_100%)]
+      text-white flex flex-col justify-between">
+    <h3 className="text-xl font-bold mb-1">Professional Plan</h3>
+    <p className="text-xs text-gray-200 mb-4">
+      Agentic AI Assistant for Individual Practitioners
+    </p>
+    <button className="bg-white text-blue-700 px-5 py-2 rounded-lg text-xs font-semibold">
+      Book a Demo to Unlock Alpha Pricing
+    </button>
+  </div>
+</th>
 
-                  {/* PROFESSIONAL */}
-                  <th className="w-[30%] relative overflow-hidden rounded-t-3xl">
-                    <div
-                      className="
-                        py-12 px-6 rounded-t-3xl 
-                        bg-gradient-to-b from-[#1F4FCF] to-[#173B9B]
-                        text-white shadow-2xl 
-                        text-left -mt-6 
-                        scale-[1.03]
-                      "
-                    >
-                      <h3 className="text-xl font-bold mb-1">
-                        Professional Plan
-                      </h3>
-                      <p className="text-xs text-gray-200 mb-4">
-                        Agentic AI Assistant for Practitioners
-                      </p>
-                      <button className="bg-white text-blue-700 px-4 py-2 rounded-lg text-xs font-semibold">
-                        Book Demo
-                      </button>
-                    </div>
-                  </th>
 
-                  {/* CLINIC */}
-                  <th className="w-[25%]">
-                    <div className="py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md text-left">
-                      <h3 className="text-xl font-bold mb-1">Clinic Plan</h3>
-                      <p className="text-xs text-gray-500 mb-4">
-                        Multi-Practitioner AI Front Desk
-                      </p>
-                      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium">
-                        Book Demo
-                      </button>
-                    </div>
-                  </th>
+      {/* CLINIC PLAN */}
+<th className="w-1/4 align-top rounded-tr-3xl">
+  <div className="h-full min-h-[260px] md:min-h-[280px] lg:min-h-[300px]
+      py-10 px-6 rounded-t-3xl bg-white text-[#19376D] shadow-md 
+      flex flex-col justify-between">
+    <h3 className="text-xl font-bold mb-1">Clinic Plan</h3>
+    <p className="text-xs text-gray-500 mb-4">
+      Comprehensive AI-Powered Front Desk for Multi-Practitioner Clinics
+    </p>
+    <button className="bg-blue-600 text-white px-5 py-2 rounded-lg text-xs font-medium">
+      Book a Demo to Unlock Alpha Pricing
+    </button>
+  </div>
+</th>
 
-                </tr>
-              </thead>
+    </tr>
+  </thead>
 
-              {/* TABLE BODY */}
-              <tbody className="text-[15px]">
-                {[
-                  ["HIPAA Compliance", "x", "✔", "✔"],
-                  ["BAA Coverage", "x", "✔", "✔"],
-                  ["AI Chatbot (Website Widget)", "✔", "(Limited Config)", "(Full Config)"],
-                  ["AI Chat Agent (WhatsApp)", "✔", "✔", "✔"],
-                  ["AI Voice Agent (Inbound Calls One Number)", "x", "✔", "✔"],
-                  ["LLM Tokens (Millions)", "0.2", "1", "3"],
-                  ["Message Volume", "1,000", "5,000", "15,000"],
-                  ["Inbound Phone Calls - AI Voice Minutes", "0", "500", "1500"],
-                  ["WhatsApp Sessions", "50", "250", "750"],
-                  ["SMS Reminders", "20", "100", "300"],
-                  ["Emails", "20", "100", "300"],
-                  ["Appointment Booking System", "Basic (No Calendar Sync)", "Advanced (With Calendar Sync)", "Advanced Multi-Provider"],
-                  ["Pre-Screening Intake Forms", "Basic Template", "Dynamic Form Builder", "Dynamic Form Builder"],
-                  ["CRM Integration (If Required)", "x", "✔", "✔"],
-                  ["Calendar Integration (Google / Outlook) OR Hubspot/Calendly", "x", "✔", "✔"],
-                  ["Appointment Rescheduling (Link Sent On Email)", "x", "✔", "✔"],
-                  ["Admin Dashboard", "Basic Metrics", "Full Dashboard & Analytics", "Multi-User Admin Dashboards"],
-                  ["Reporting & Analytics", "x", "✔", "(Exportable)"],
-                  ["Team Members", "1", "1", "3 (INCLUDED)"],
-                  ["Additional Practitioners", "x", "x", "$50/User/Mo"],
-                  ["User Roles (Doctor/Admin/Staff)", "x", "✔", "✔"],
-                  ["SMS/Email Reminders", "x", "✔", "✔"],
-                  ["Chat Logs Retention", "7 Days", "90 Days", "1 Year"],
-                  ["Storage Allotted Per Month", "500 MB", "1 GB", "3 GB"],
-                  ["PHI Detection & Redaction", "x", "✔", "(Customizable)"],
-                  ["Consent Tracking", "x", "✔", "✔"],
-                  ["Secure Vector Search (RAG)", "x", "✔", "✔"],
-                  ["Multilingual Support", "x", "(English + 1 Supported Language)", "(English + 1 Supported Language)"],
-                  ["Custom Branding", "x", "✔", "✔"],
-                  ["Dedicated Account Manager", "x", "x", "✔"],
-                  ["Support Level", "Email Only", "Priority Chat", "Priority Chat + Phone"],
-                ].map((row, idx) => (
-                  <tr key={idx} className="border-t border-gray-200">
+  <tbody className="text-[12px]">
+    {[
+      ["HIPAA Compliance", "x", "✔", "✔"],
+      ["BAA Coverage", "x", "✔", "✔"],
+      ["AI Chatbot (Website Widget)", "✔", "(Limited Config)", "(Full Config)"],
+      ["AI Chat Agent (WhatsApp)", "✔", "✔", "✔"],
+      ["AI Voice Agent (Inbound Calls One Number)", "x", "✔", "✔"],
+      ["LLM Tokens (Millions)", "0.2", "1", "3"],
+      ["Message Volume", "1,000", "5,000", "15,000"],
+      ["Inbound Phone Calls - AI Voice Minutes", "0", "500", "1500"],
+      ["WhatsApp Sessions", "50", "250", "750"],
+      ["SMS Reminders", "20", "100", "300"],
+      ["Emails", "20", "100", "300"],
+      ["Appointment Booking System", "Basic (No Calendar Sync)", "Advanced (With Calendar Sync)", "Advanced Multi-Provider"],
+      ["Pre-Screening Intake Forms", "Basic Template", "Dynamic Form Builder", "Dynamic Form Builder"],
+      ["CRM Integration (If Required)", "x", "✔", "✔"],
+      ["Calendar Integration (Google / Outlook) OR Hubspot/Calendly", "x", "✔", "✔"],
+      ["Appointment Rescheduling (Link Sent On Email)", "x", "✔", "✔"],
+      ["Admin Dashboard", "Basic Metrics", "Full Dashboard & Analytics", "Multi-User Admin Dashboards"],
+      ["Reporting & Analytics", "x", "✔", "(Exportable)"],
+      ["Team Members", "1", "1", "3 (INCLUDED)"],
+      ["Additional Practitioners", "x", "x", "$50/User/Mo"],
+      ["User Roles (Doctor/Admin/Staff)", "x", "✔", "✔"],
+      ["SMS/Email Reminders", "x", "✔", "✔"],
+      ["Chat Logs Retention", "7 Days", "90 Days", "1 Year"],
+      ["Storage Allotted Per Month", "500 MB", "1 GB", "3 GB"],
+      ["PHI Detection & Redaction", "x", "✔", "(Customizable)"],
+      ["Consent Tracking", "x", "✔", "✔"],
+      ["Secure Vector Search (RAG)", "x", "✔", "✔"],
+      ["Multilingual Support", "x", "(English + 1 Supported Language)", "(English + 1 Supported Language)"],
+      ["Custom Branding", "x", "✔", "✔"],
+      ["Dedicated Account Manager", "x", "x", "✔"],
+      ["Support Level", "Email Only", "Priority Chat", "Priority Chat + Phone"],
+    ].map((row, idx) => (
+      <tr
+        key={idx}
+        className="border-t border-gray-200 divide-x divide-gray-200"
+      >
+        {/* FEATURE NAME */}
+        <td className="py-3 px-6 bg-white font-semibold text-gray-900">
+          {row[0]}
+        </td>
 
-                    {/* FEATURE NAME */}
-                    <td className="py-6 px-6 bg-white font-semibold text-gray-900">
-                      {row[0]}
-                    </td>
+        {/* STARTER */}
+        <td className="text-center bg-white py-3">
+          {renderCell(row[1])}
+        </td>
 
-                    {/* STARTER */}
-                    <td className="text-center bg-white py-6">
-                      {renderCell(row[1])}
-                    </td>
+        {/* PROFESSIONAL */}
+        <td className="text-center py-3 bg-[#003063]">
+          {renderCell(row[2], true)}
+        </td>
 
-                    {/* PROFESSIONAL */}
-                    <td className="text-center py-6 bg-gradient-to-b from-[#1F4FCF] to-[#173B9B]">
-                      {renderCell(row[2], true)}
-                    </td>
-
-                    {/* CLINIC */}
-                    <td className="text-center py-6 bg-white">
-                      {renderCell(row[3])}
-                    </td>
-
-                  </tr>
-                ))}
-              </tbody>
-
-            </table>
+        {/* CLINIC */}
+        <td className="text-center py-3 bg-white">
+          {renderCell(row[3])}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
           </div>
         </div>
 

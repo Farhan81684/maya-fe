@@ -9,24 +9,27 @@ export default function Hero() {
   return (
     <>
       {/* HERO SECTION */}
-      <section
-        className="
-          relative w-full 
-          pt-24 pb-[350px]
-          sm:pb-[380px]
-          md:pb-[420px]
-          lg:pb-[480px]
-          xl:pb-[520px]
-          overflow-visible
-          bg-[url('/bg/hero.png')]
-          bg-cover bg-center bg-no-repeat
-        "
-      >
+<section
+  className="
+    relative w-full 
+    pt-24 
+    pb-[270px]
+    sm:pb-[300px]
+    md:pb-[330px]
+    lg:pb-[360px]
+    xl:pb-[390px]
+    overflow-visible
+    bg-[url('/bg/hero.png')]
+    bg-cover bg-center bg-no-repeat
+  "
+>
+
+
+
         {/* MAIN CONTENT */}
         <div
           className="
             max-w-7xl mx-auto 
-            mt-20
             px-8 sm:px-12 md:px-16 
             flex flex-col lg:flex-row 
             items-center justify-between 
@@ -54,7 +57,7 @@ export default function Hero() {
               Front Desk <span className='text-blue-400'>Assistant</span>
             </h1>
 
-            <ul className="space-y-4 text-base sm:text-lg md:text-xl mb-8 mx-auto">
+            <ul className="space-y-4 text-gray-600 text-base sm:text-lg md:text-xl mb-8 mx-auto">
               <li className="flex gap-3 justify-center lg:justify-start">
                 <FaCheck className="text-green-400 text-lg sm:text-xl" />
                 Instantly books & manages appointments
@@ -114,35 +117,39 @@ export default function Hero() {
         <div
           className="
             absolute left-1/2 -translate-x-1/2
-            bottom-0 translate-y-[40%]
+            bottom-0 translate-y-[48%]
             w-full flex justify-center 
             z-20
           "
         >
-          <Image
-            src={Mockup}
-            alt="Tablet Mockup"
-            className="
-              w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-[75%]
-              max-w-[900px]
-              h-auto rounded-xl shadow-xl
-              relative z-20
-            "
-          />
+       <Image
+  src={Mockup}
+  alt="Tablet Mockup"
+  className="
+    w-[90%] sm:w-[75%] md:w-[80%] lg:w-[75%] xl:w-[70%]
+    max-w-[900px]
+    h-auto rounded-xl shadow-xl
+    relative z-20
+  "
+/>
+
+
         </div>
       </section>
+<div
+  className="
+    w-full 
+    bg-[url('/assets/homepage/bg.gif')]
+    bg-cover bg-center
+    filter invert brightness-50
+    h-[300px] sm:h-[350px] md:h-[400px]
+    -mt-15
+  "
+/>
+
 
       {/* GIF FLOOR SECTION — BOTTOM-MOST LAYER */}
-      <div
-        className="
-          w-full 
-          bg-[url('/assets/homepage/bg.gif')]
-          bg-cover bg-center
-          filter invert
-          h-[300px] sm:h-[350px] md:h-[400px]
-          -mt-24
-        "
-      />
+
     </>
   );
 }

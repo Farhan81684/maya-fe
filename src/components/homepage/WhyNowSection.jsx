@@ -6,8 +6,8 @@ import laptop from "../../../public/assets/homepage/laptop.png";
 
 export default function WhyNowSection() {
   return (
-    <section className="w-full bg-white py-24">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12">
+    <section className="w-full bg-white -pt-8">
+      <div className="max-w-7xl mx-auto px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
         
         {/* LEFT CONTENT */}
         <div className="flex-1">
@@ -20,17 +20,15 @@ export default function WhyNowSection() {
           {/* ✅ Main Headline */}
           <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-8">
             Your <span className="text-blue-600">Patients</span> Expect
-            <br />
             Instant Support. Are You
-            <br />
-            <span className="text-blue-600">Ready?</span>
+            <span className="text-blue-600"> Ready?</span>
           </h2>
 
           {/* ✅ Bullet Points */}
-          <ul className="space-y-4 text-lg text-gray-600">
+          <ul className="space-y-2 text-lg text-gray-600">
             <li className="flex gap-3">
               <FaCheck className="text-green-500 mt-1" />
-              78% patients prefer clinics with instant chat/call support.
+              78% patients prefer clinics with instant support.
             </li>
 
             <li className="flex gap-3">
@@ -47,16 +45,17 @@ export default function WhyNowSection() {
 
 {/* ✅ RIGHT — Laptop image placeholder */}
 <div className="flex-1 flex justify-center">
-  <div className="w-full max-w-[650px] h-auto flex items-center justify-center">
+  <div className="w-full max-w-[1200px] h-auto scale-115 flex items-center justify-center">
     <Image
       src={laptop}
       alt="Laptop"
       className="w-full h-auto object-contain"
-      width={650}
-      height={380}
+      width={1200} // Increased width
+      height={480} // Adjusted height
     />
   </div>
 </div>
+
 
 
       </div>

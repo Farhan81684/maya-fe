@@ -4,7 +4,8 @@ import Image from "next/image";
 
 export default function AiAutomation() {
   return (
-    <section className="w-full py-20 flex justify-center">
+    <section className="w-full -mt-8 flex justify-center">
+
       <div
         className="
           relative
@@ -26,7 +27,7 @@ export default function AiAutomation() {
 
         {/* ====== CONTENT ====== */}
         <div className="relative z-10">
-          <h2 className="text-center text-3xl md:text-5xl font-bold mb-6 text-white">
+          <h2 className="text-center text-3xl md:text-5xl font-bold my-6 text-white">
             All-in-One <span className="text-blue-500">AI Front Desk Automation</span>
           </h2>
 
