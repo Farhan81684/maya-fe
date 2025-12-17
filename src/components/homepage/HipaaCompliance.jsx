@@ -18,6 +18,7 @@ export default function HipaaCompliance() {
           w-full
           bg-[url('/bg/mcbg.png')]
           bg-cover bg-center bg-no-repeat
+          bg-black
           rounded-t-[48px]
           px-6 lg:px-14 py-16
           max-w-[1300px]  /* Consistent width */
@@ -27,7 +28,7 @@ export default function HipaaCompliance() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
           {/* Left Column */}
           <div className="text-white">
-            <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-12">
               <span className="text-[#2A62FF]">HIPAA</span> Compliance at Every Step
             </h2>
 

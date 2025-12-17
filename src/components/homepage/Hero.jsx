@@ -21,6 +21,7 @@ export default function Hero() {
     overflow-visible
     bg-[url('/bg/hero.png')]
     bg-cover bg-center bg-no-repeat
+    bg-black
   "
 >
 

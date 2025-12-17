@@ -9,13 +9,13 @@ import agent1 from "../../../public/assets/homepage/agents.png";
 export default function PoweredBy() {
   return (
     <section className="w-full bg-white pt-18">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-2">
 
         {/* ✅ Card Container */}
 <div 
   className="
     w-full 
-    bg-[url('/bg/wic.png')]
+    bg-[url('/bg/mcbg.png')]
     bg-cover bg-no-repeat
     rounded-t-3xl 
     p-10 lg:p-16 

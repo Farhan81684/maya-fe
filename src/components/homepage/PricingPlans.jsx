@@ -50,6 +50,7 @@ export default function PricingPlans() {
           bg-[url('/bg/mcbg.png')]
           rounded-t-[32px] md:rounded-t-[40px] lg:rounded-t-[48px]
           bg-cover bg-center bg-no-repeat
+          bg-black
           px-16 sm:px-20 md:px-28 lg:px-36
           pt-12 md:pt-14 lg:pt-16
           pb-16 md:pb-18 lg:pb-20
@@ -111,7 +112,8 @@ export default function PricingPlans() {
               </div>
 
               <div>
-                <button className="w-full px-2 py-3 bg-[#0176F2] rounded-lg text-sm font-medium text-white hover:bg-blue-700 transition">
+                <button className="w-full px-2 py-3     bg-[linear-gradient(90deg,#0176F2_0%,#01448C_100%)]
+    hover:opacity-90 rounded-lg text-sm font-medium text-white  transition">
                   Book a Demo to Unlock Alpha Pricing
                 </button>
 
@@ -165,7 +167,8 @@ export default function PricingPlans() {
     <p className="text-xs text-gray-500 mb-4">
       AI Chatbot for Basic Customer Interactions (Non-PHI Use Cases)
     </p>
-    <button className="bg-blue-600 text-white px-5 py-2 rounded-lg text-xs font-medium">
+    <button className="    bg-[linear-gradient(90deg,#0176F2_0%,#01448C_100%)]
+    hover:opacity-90 text-white px-5 py-2 rounded-lg text-xs font-medium">
       Book a Demo to Unlock Alpha Pricing
     </button>
   </div>
@@ -176,13 +179,14 @@ export default function PricingPlans() {
   <div className="
       h-full min-h-[260px] md:min-h-[280px] lg:min-h-[300px]
       py-10 px-6 rounded-t-3xl shadow-2xl
-      bg-[linear-gradient(90deg,#003063_0%,#0061C9_100%)]
+      bg-[#003063]
       text-white flex flex-col justify-between">
     <h3 className="text-xl font-bold mb-1">Professional Plan</h3>
     <p className="text-xs text-gray-200 mb-4">
       Agentic AI Assistant for Individual Practitioners
     </p>
-    <button className="bg-white text-blue-700 px-5 py-2 rounded-lg text-xs font-semibold">
+    <button className="    bg-[linear-gradient(90deg,#0176F2_0%,#01448C_100%)]
+    hover:opacity-90 text-white px-5 py-2 rounded-lg text-xs font-medium">
       Book a Demo to Unlock Alpha Pricing
     </button>
   </div>
@@ -198,7 +202,8 @@ export default function PricingPlans() {
     <p className="text-xs text-gray-500 mb-4">
       Comprehensive AI-Powered Front Desk for Multi-Practitioner Clinics
     </p>
-    <button className="bg-blue-600 text-white px-5 py-2 rounded-lg text-xs font-medium">
+    <button className="    bg-[linear-gradient(90deg,#0176F2_0%,#01448C_100%)]
+    hover:opacity-90 text-white px-5 py-2 rounded-lg text-xs font-medium">
       Book a Demo to Unlock Alpha Pricing
     </button>
   </div>

@@ -12,6 +12,7 @@ export default function AboutSection() {
   className="
     bg-[url('/bg/mcbg.png')]
     bg-cover bg-center bg-no-repeat
+    bg-black
     rounded-t-[60px]
     rounded-b-none
     max-w-7xl 

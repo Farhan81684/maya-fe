@@ -26,6 +26,58 @@
   --breakpoint-5xs: 350px;
 }
 
+.startup-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.calendly-override {
+  height: 100% !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+
+.calendly-inline-widget,
+.calendly-inline-widget * {
+  background: transparent !important;
+}
+
+.calendly-inline-widget {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+.startup-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+/* Custom smooth bounce */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 1.5s infinite ease-in-out;
+}
+
 
 :root {
   --background: #ffffff;

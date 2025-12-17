@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# PASSWORD : fCE5;tS5?#pd2tX'(S6/
+# PASSWORD : 0FCvViyh6ajiaATdgO-v
+
 
 # === SSH CONFIG ===
 SSH_USER="root"
