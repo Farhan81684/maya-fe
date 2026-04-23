@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maya-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maya-frontend
+  template:
+    metadata:
+      labels:
+        app: maya-frontend
+    spec: 
+      nodeName: master 
+      containers:
+      - name: maya-frontend
+        image: farhanraju/maya-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: maya-frontend-config
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"

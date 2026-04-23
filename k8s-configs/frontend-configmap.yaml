@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maya-frontend-config
+data:
+  # Aapka backend nodeport service 31000 par hai, wahi yahan aayega
+  NEXT_PUBLIC_API_URL: "http://192.168.72.142:31000"

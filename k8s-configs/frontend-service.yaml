@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: maya-frontend-service
+spec:
+  selector:
+    app: maya-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30094
+  type: NodePort
