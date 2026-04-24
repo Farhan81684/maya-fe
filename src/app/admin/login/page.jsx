@@ -65,7 +65,7 @@ router.push("/admin/dashboard");
                 <div className="flex flex-col justify-center lg:flex-none">
                     <div className="mx-auto w-[90%]">
                         <div className="space-y-7">
-                            <h1 className="text-4xl font-semibold tracking-tight text-gray-900">Farhan Welcome Back <span className="text-4xl">👋</span></h1>
+                            <h1 className="text-4xl font-semibold tracking-tight text-gray-900">Farhan Ahmed Welcome Back <span className="text-4xl">👋</span></h1>
                             <p className="text-[#313957] text-[1.2rem]">Today is a new day. It's your day. You shape it. <br /> Login to start managing your projects.</p>
 
                             <form className="space-y-6 mt-10" onSubmit={handleSubmit}>
