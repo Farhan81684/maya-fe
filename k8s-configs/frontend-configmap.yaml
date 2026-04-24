@@ -3,5 +3,4 @@ kind: ConfigMap
 metadata:
   name: maya-frontend-config
 data:
-  # Aapka backend nodeport service 31000 par hai, wahi yahan aayega
-  NEXT_PUBLIC_API_URL: "http://api.maya.local/server/auth"
+  NEXT_PUBLIC_API_URL: "http://api.maya.local/server/auth" 
