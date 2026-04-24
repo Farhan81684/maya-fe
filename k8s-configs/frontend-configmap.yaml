@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: maya-frontend-config
 data:
-  NEXT_PUBLIC_API_URL: "http://api.maya.local/server/auth" 
+  NEXT_PUBLIC_API_URL: "http://api.maya.local/server" 
